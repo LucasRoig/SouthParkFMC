@@ -1,0 +1,109 @@
+#Episode
+UpdateEpisode POST /episode/update
+int episodeId, int productionCode, int SeasonId, String nameVO, String nameVF, String plot, int indexInSeason
+-> readEpisode
+
+CreateEpisode POST /episode/create
+(int productionCode, int SeasonId, String nameVO, String nameVF, int indexInSeason)
+->readAllSeason
+
+DeleteEpisode POST /episode/delete
+int episodeId
+->readAllSeason
+
+AddQuoteToEpisode POST /episode/addQuote
+int episodeId,int characterId,String quoteText, String quoteNote
+-> readEpisode
+
+AddTagToEpisode POST /episode/addTag
+int episodeId, int tagId, String note
+-> readEpisode
+
+AddApparitionToEpisode POST /episode/addApparition
+int episodeId, int characterId,int roleId, String note
+-> readEpisode
+
+RemoveQuoteFromEpisode POST /episode/removeQuote
+int quoteId
+-> readEpisode
+
+RemoveTagFromEpisode POST /episode/removeTag
+int episodeId,int tagId
+-> readEpisode
+
+RemoveApparitionFromEpisode POST /episode/removeApparition
+int episodeId,int characterId
+-> readEpisode
+
+ReadEpisode GET /episode/read
+int episodeId
+-> jsp
+
+#Season
+CreateSeason POST /season/create
+int seasonId, int diffusionYear
+-> readAllSeason
+
+UpdateSeason POST /season/update
+int seasonId, int diffusionYear
+-> readAllSeason
+
+DeleteSeason POST /season/delete
+int seasonId
+-> readAllSeason
+
+ReadAllSeason GET /season/readAll
+-> jsp
+
+ReadEpisodeInSeason GET /season/readEpisode
+int seasonId
+-> JSON ?
+
+#TAG
+
+UpdateTag POST /tag/update
+int tagId, String tagName
+-> ReadTad
+
+DeleteTag POST /tag/delete
+int tagId
+-> ReadAllTag
+
+ReadTag GET /tag/read
+int tagId
+-> jsp
+
+ReadAllTag GET /tag/readAll
+-> jsp
+
+#Quote
+UpdateQuote POST /quote/update
+int quoteId,int episodeId,int characterId,String quoteText, String quoteNote
+-> ReadEpisode
+
+ReadAllQuote GET /quote/readAll
+-> jsp
+
+#Character
+CreateCharacter POST /character/create
+String characterName
+-> ReadAllCharacter
+
+UpdateCharacter POST /character/update
+int characterId, String characterName, String background
+-> ReadCharacter
+
+DeleteCharacter POST /character/delete
+int characterId
+-> ReadAllCharacter
+
+ReadCharacter GET /character/read
+int characterId
+-> jsp
+
+ReadAllCharacter GET /character/readAll
+-> jsp
+
+#Authentication
+login POST /authentication/login
+-> jsp

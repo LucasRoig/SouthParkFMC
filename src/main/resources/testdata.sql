@@ -1,0 +1,132 @@
+-- Script creation de la base
+DROP TABLE SEASON IF EXISTS CASCADE;
+DROP TABLE EPISODE IF EXISTS CASCADE;
+DROP TABLE TAG IF EXISTS CASCADE;
+DROP TABLE ROLE IF EXISTS CASCADE;
+DROP TABLE CHARACTERS IF EXISTS CASCADE;
+DROP TABLE APPARITION IF EXISTS CASCADE;
+DROP TABLE TAGGED IF EXISTS CASCADE;
+DROP TABLE QUOTE IF EXISTS CASCADE;
+DROP TABLE PRIVILEGE IF EXISTS CASCADE;
+DROP TABLE USERS IF EXISTS CASCADE;
+
+
+
+
+CREATE TABLE SEASON (
+seasonId INTEGER PRIMARY KEY,
+diffusionYear INTEGER NOT NULL
+);
+
+CREATE TABLE EPISODE(
+episodeId INTEGER IDENTITY PRIMARY KEY,
+productionCode INTEGER NOT NULL,
+seasonId INTEGER NOT NULL,
+nameVO varchar(64) NOT NULL,
+nameVF varchar(64),
+plot varchar(32),
+indexInSeason INTEGER NOT NULL,
+FOREIGN KEY (seasonId) REFERENCES SEASON(seasonId) ON DELETE CASCADE ON UPDATE CASCADE,
+UNIQUE (seasonId,indexInSeason),
+UNIQUE (nameVO),
+UNIQUE (nameVF)
+);
+
+CREATE TABLE TAG(
+tagId INTEGER IDENTITY PRIMARY KEY,
+tagName varchar(64) NOT NULL UNIQUE
+);
+
+CREATE TABLE ROLE(
+roleId INTEGER IDENTITY PRIMARY KEY,
+roleName varchar(32) NOT NULL UNIQUE
+);
+
+CREATE TABLE CHARACTERS(
+characterId INTEGER IDENTITY PRIMARY KEY,
+characterName varchar(64) NOT NULL,
+background varchar(32)
+);
+
+
+CREATE TABLE APPARITION(
+characterId INTEGER,
+episodeId INTEGER,
+roleId INTEGER,
+apparitionNote varchar(32),
+PRIMARY KEY (characterId,episodeId,roleId),
+FOREIGN KEY (characterId) REFERENCES CHARACTERS(characterId) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (episodeId) REFERENCES EPISODE(episodeId) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (roleId) REFERENCES ROLE(roleId) ON DELETE SET NULL ON UPDATE CASCADE
+);
+
+CREATE TABLE TAGGED(
+tagId INTEGER,
+episodeId INTEGER,
+taggedNote varchar(32),
+PRIMARY KEY (tagId,episodeId),
+FOREIGN KEY (episodeId) REFERENCES EPISODE(episodeId) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (tagId) REFERENCES TAG(tagId) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE QUOTE(
+quoteId INTEGER IDENTITY,
+episodeId INTEGER,
+characterId INTEGER,
+quoteText varchar(32) NOT NULL,
+quoteNote varchar(32),
+PRIMARY KEY (quoteId,episodeId),
+FOREIGN KEY (episodeId) REFERENCES EPISODE(episodeId) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (characterId) REFERENCES CHARACTERS(characterId)
+);
+
+CREATE TABLE PRIVILEGE(
+privilege varchar(16) PRIMARY KEY
+);
+
+CREATE TABLE USERS(
+userLogin varchar(32) PRIMARY KEY,
+userPassword varchar(32) NOT NULL,
+privilege varchar(16) NOT NULL,
+FOREIGN KEY (privilege) REFERENCES PRIVILEGE(privilege)
+); 
+
+--Ajout de 3 saisons--
+INSERT INTO SEASON VALUES(1,1997);
+INSERT INTO SEASON VALUES(2,1998);
+INSERT INTO SEASON VALUES(3,1999);
+
+--Ajout de 2 episodes dans la saison 1--
+INSERT INTO EPISODE VALUES(1,101,1,'episode1','episode1','plot',1);
+INSERT INTO EPISODE VALUES(2,102,1,'episode2','episode2','plot',2);
+
+--Ajout de 2 Tags--
+INSERT INTO TAG VALUES(1,'Panda');
+INSERT INTO TAG VALUES(2,'Chine');
+
+--"TAGAGE" de l'episode 1--
+INSERT INTO TAGGED VALUES(1,1,'Beaucoup de pandas');
+INSERT INTO TAGGED VALUES(1,2,'');
+
+
+--Ajout de 2 personnages--
+INSERT INTO CHARACTERS VALUES(1,'Randy','');
+INSERT INTO CHARACTERS VALUES(2,'Cartman','');
+
+--Ajout de 2 role--
+INSERT INTO role VALUES(1,'main');
+INSERT INTO role VALUES(2,'secondary');
+
+--Ajout d'un personnage dans l'episode 1--
+INSERT INTO APPARITION(characterid,episodeid,roleid) VALUES(1,1,1);
+
+--Ajout de quote--
+INSERT INTO QUOTE(episodeId,characterID,quoteText,quoteNote) VALUES(1,2,'Et je rentre à ma maison','le grand classique');
+INSERT INTO QUOTE(episodeId,characterID,quoteText) VALUES(1,2,'Je suis');
+
+--Ajout de privileges--
+INSERT INTO PRIVILEGE VALUES('user');
+INSERT INTO PRIVILEGE VALUES('admin');
+
+INSERT INTO USERS VALUES('user','pass','user');
+INSERT INTO USERS VALUES('admin','word','admin');
