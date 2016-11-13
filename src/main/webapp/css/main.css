@@ -31,8 +31,12 @@ and open the template in the editor.
 
 .form-switch .front{}
 
-.back{
+.form-switch .back{
     display: none;
 }
 
-.btn-switch{}
+.form-switch .btn-switch{}
+
+.select-selectize-createEnable{}
+
+.select-selectize-createDisable{}

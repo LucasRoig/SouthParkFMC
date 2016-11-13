@@ -5,6 +5,9 @@
  */
 package fr.athome.southparkfmc.actions;
 
+import fr.athome.southparkfmc.actions.episode.AddApparition;
+import fr.athome.southparkfmc.actions.episode.AddQuote;
+import fr.athome.southparkfmc.actions.episode.AddTag;
 import fr.athome.southparkfmc.actions.episode.ReadEpisode;
 import fr.athome.southparkfmc.actions.episode.UpdateEpisode;
 import fr.athome.southparkfmc.dataaccess.DaoManager;
@@ -23,6 +26,9 @@ public class ActionFactory {
         this.daoManager = daoManager;
         actions.put("GET/episode/read", new ReadEpisode(this.daoManager));
         actions.put("POST/episode/update", new UpdateEpisode(this.daoManager));
+        actions.put("POST/episode/addApparition", new AddApparition(this.daoManager));
+        actions.put("POST/episode/addTag", new AddTag(this.daoManager));
+        actions.put("POST/episode/addQuote", new AddQuote(this.daoManager));
     }
     
     public Action getAction(HttpServletRequest request){

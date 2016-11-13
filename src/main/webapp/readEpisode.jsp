@@ -15,11 +15,14 @@
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 
-        <link  rel="stylesheet" type="text/css" href="/main.css">
+        <link rel="stylesheet" type="text/css" media="all" href="/css/selectize.css">
+        <link  rel="stylesheet" type="text/css" href="/css/main.css">
         <!-- Latest compiled and minified JavaScript -->
         <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="/scripts/readEpisode.js"></script>
+        <script type="text/javascript" src="/js/selectize.min.js"></script>
+        <script src="/js/autosize.js"></script>
+        <script src="/js/readEpisode.js"></script>
     </head>
     <body> 
         <%@include file="/header.jsp" %>
@@ -59,10 +62,10 @@
             
             
             <div class="tab-content">
-                <%@include file="episode-plot.jsp" %>
-                <%@include file="episode-quotes.jsp" %>
-                <%@include file="episode-tags.jsp" %>
-                <%@include file="episode-apparitions.jsp" %>               
+                <%@include file="episodeView/episode-plot.jsp" %>
+                <%@include file="episodeView/episode-quotes.jsp" %>
+                <%@include file="episodeView/episode-tags.jsp" %>
+                <%@include file="episodeView/episode-apparitions.jsp" %>               
             </div>
         </div>
     </body>

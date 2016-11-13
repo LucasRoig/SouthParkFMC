@@ -38,7 +38,7 @@ public class AddQuote implements Action{
             request.setAttribute(EpisodeController.PARAM_ERROR, "Paramètres non valides");            
         }
         request.setAttribute(EpisodeController.PARAM_SELECTED_EPISODE, episodeId);
-        return"read";
+        return"read?episodeId=" + this.episodeId;
     }
     
     private void gatherParameters(HttpServletRequest request){

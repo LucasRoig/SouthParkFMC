@@ -15,6 +15,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -35,12 +37,12 @@ public class EpisodeController extends HttpServlet {
     public static final String PARAM_QUOTE_TEXT= "quoteText";
     public static final String PARAM_QUOTE_NOTE= "quoteNote";
     public static final String PARAM_QUOTE_ID= "quoteId";
-    public static final String PARAM_APPARITION_ID= "apparitionID";
-    public static final String PARAM_TAG_ID= "tagID";
-    public static final String PARAM_ROLE_ID= "roleID";
+    public static final String PARAM_APPARITION_ID= "apparitionId";
+    public static final String PARAM_TAG_ID= "tagId";
+    public static final String PARAM_ROLE_ID= "roleId";
     public static final String PARAM_NOTE= "note";
     
-    
+    private static Logger LOGGER = LoggerFactory.getLogger(EpisodeController.class);
     
     
     ActionFactory actionFactory = new ActionFactory(new DaoManager(DataSourceSupplier.getDataSource()));
@@ -56,6 +58,7 @@ public class EpisodeController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        LOGGER.info("Requete reçue : " + request.getMethod()+request.getServletPath()+request.getPathInfo());
         Action action = actionFactory.getAction(request);
         String view = action.execute(request, response);
         

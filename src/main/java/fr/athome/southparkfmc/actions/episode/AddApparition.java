@@ -34,7 +34,7 @@ public class AddApparition implements Action{
         dao.addApparition(episodeId, characterId, roleId, note);
         
         request.setAttribute(EpisodeController.PARAM_EPISODEID, episodeId);
-        return "read";
+        return "read?episodeId=" + episodeId;
     }
     
     private void gatherParameters(HttpServletRequest request){

@@ -33,7 +33,7 @@ public class AddTag implements Action{
         dao.addTag(episodeId, tagId, note);
         
         request.setAttribute(EpisodeController.PARAM_EPISODEID, episodeId);
-        return "read";
+        return "read?episodeId=" + this.episodeId;
     }
     
     private void gatherParameters(HttpServletRequest request){
