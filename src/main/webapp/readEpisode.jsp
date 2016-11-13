@@ -15,7 +15,7 @@
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 
-        <link rel="stylesheet" type="text/css" media="all" href="/css/selectize.css">
+        <link rel="stylesheet" type="text/css" media="all" href="/css/selectize.bootstrap3.css">
         <link  rel="stylesheet" type="text/css" href="/css/main.css">
         <!-- Latest compiled and minified JavaScript -->
         <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
