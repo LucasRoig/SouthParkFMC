@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
@@ -105,19 +106,21 @@ public class TagDao {
     /**
      * Ajoute un nouveau tag dans la base
      * @param tagName
-     * @return true si l'ajout s'est termine sans erreur, false sinon
+     * @return l'id du tag créé, -1 si erreur
      */
-    public boolean create(String tagName){
-        boolean result = false;
+    public int create(String tagName){
+        int result = -1;
         
         String sql = "INSERT INTO tag (tagname) VALUES(?)";
         Connection connection= null;
         try {
         connection = this.dataSource.getConnection();
-        PreparedStatement stmt = connection.prepareStatement(sql);
+        PreparedStatement stmt = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
         stmt.setString(1, tagName);
         stmt.executeUpdate();
-        result = true;
+        ResultSet rs = stmt.getGeneratedKeys();
+        rs.next();
+        result = rs.getInt("tagId");
         stmt.close();
         connection.close();
         } catch (SQLException e) {

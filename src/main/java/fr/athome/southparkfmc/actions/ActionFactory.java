@@ -10,6 +10,7 @@ import fr.athome.southparkfmc.actions.episode.AddQuote;
 import fr.athome.southparkfmc.actions.episode.AddTag;
 import fr.athome.southparkfmc.actions.episode.ReadEpisode;
 import fr.athome.southparkfmc.actions.episode.UpdateEpisode;
+import fr.athome.southparkfmc.actions.tag.CreateTag;
 import fr.athome.southparkfmc.dataaccess.DaoManager;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,7 @@ public class ActionFactory {
         actions.put("POST/episode/addApparition", new AddApparition(this.daoManager));
         actions.put("POST/episode/addTag", new AddTag(this.daoManager));
         actions.put("POST/episode/addQuote", new AddQuote(this.daoManager));
+        actions.put("POST/tag/create", new CreateTag(this.daoManager));
     }
     
     public Action getAction(HttpServletRequest request){
