@@ -1,3 +1,5 @@
+<%@ page pageEncoding="UTF-8" %>
+
 <div id="tag" class="tab-pane fade in">
     <table class="table table-striped">
         <thead>

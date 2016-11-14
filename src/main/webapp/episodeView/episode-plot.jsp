@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page pageEncoding="UTF-8" %>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <div id="resume" class="tab-pane fade in active">
@@ -41,7 +43,7 @@
                                     <input type="number" name="seasonId" class="form-control" value="${episode.seasonId}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="indexInSeasonInput">Numéro dans la saison :</label>
+                                    <label for="indexInSeasonInput">NumÃ©ro dans la saison :</label>
                                     <input type="number" name="indexInSeason" class="form-control" value="${episode.indexInSeason}">
                                 </div>
                                 <div class="form-group">

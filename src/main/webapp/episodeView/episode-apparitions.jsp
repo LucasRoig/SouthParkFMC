@@ -3,7 +3,7 @@
     Created on : 9 nov. 2016, 23:18:44
     Author     : Lucas
 --%>
-
+<%@ page pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div id="personnage" class="tab-pane fade in">
     <table class="table table-striped">
@@ -58,10 +58,10 @@ episodeId
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-4" for="roleId">Rôle : </label>
+                        <label class="control-label col-sm-4" for="roleId">RÃ´le : </label>
                         <div class="col-sm-6">
-                            <select name="roleId" class="select-selectize-createDisable" placeholder="Sélectionnez un rôle...">
-                                <option disabled selected value> -- Sélectionnez un rôle -- </option>
+                            <select name="roleId" class="select-selectize-createDisable" placeholder="SÃ©lectionnez un rÃ´le...">
+                                <option disabled selected value> -- SÃ©lectionnez un rÃ´le -- </option>
                                 <c:forEach  var="role" items="${allRolesList}">
                                     <option value="${role.roleId}">${role.roleName}</option>
                                 </c:forEach>
