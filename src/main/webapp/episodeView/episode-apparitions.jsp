@@ -21,7 +21,7 @@
                 <td>${apparition.characterName}</td>
                 <td>${apparition.role}</td>
                 <td>${apparition.note}</td>
-                <td></td>
+                <td><button class="btn btn-danger btn-remove-apparition" value="${apparition.characterId}"><span class="glyphicon glyphicon-remove"/></button></td>
             </tr>
         </c:forEach>
         </tbody>

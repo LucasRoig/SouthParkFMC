@@ -9,6 +9,9 @@ import fr.athome.southparkfmc.actions.episode.AddApparition;
 import fr.athome.southparkfmc.actions.episode.AddQuote;
 import fr.athome.southparkfmc.actions.episode.AddTag;
 import fr.athome.southparkfmc.actions.episode.ReadEpisode;
+import fr.athome.southparkfmc.actions.episode.RemoveApparition;
+import fr.athome.southparkfmc.actions.episode.RemoveQuote;
+import fr.athome.southparkfmc.actions.episode.RemoveTag;
 import fr.athome.southparkfmc.actions.episode.UpdateEpisode;
 import fr.athome.southparkfmc.actions.tag.CreateTag;
 import fr.athome.southparkfmc.dataaccess.DaoManager;
@@ -30,6 +33,9 @@ public class ActionFactory {
         actions.put("POST/episode/addApparition", new AddApparition(this.daoManager));
         actions.put("POST/episode/addTag", new AddTag(this.daoManager));
         actions.put("POST/episode/addQuote", new AddQuote(this.daoManager));
+        actions.put("POST/episode/removeQuote", new RemoveQuote(this.daoManager));
+        actions.put("POST/episode/removeTag", new RemoveTag(this.daoManager));
+        actions.put("POST/episode/removeApparition", new RemoveApparition(this.daoManager));
         actions.put("POST/tag/create", new CreateTag(this.daoManager));
     }
     

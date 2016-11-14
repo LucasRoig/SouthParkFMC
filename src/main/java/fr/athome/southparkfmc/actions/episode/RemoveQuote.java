@@ -9,6 +9,8 @@ import fr.athome.southparkfmc.actions.Action;
 import fr.athome.southparkfmc.dataaccess.DaoManager;
 import fr.athome.southparkfmc.dataaccess.QuoteDao;
 import fr.athome.southparkfmc.servlets.EpisodeController;
+import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,7 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 public class RemoveQuote implements Action{
     DaoManager daoManager;
     int quoteId;
-    int episodeId;
 
     public RemoveQuote(DaoManager daoManager) {
         this.daoManager = daoManager;
@@ -29,9 +30,24 @@ public class RemoveQuote implements Action{
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         this.gatherParameters(request);
         QuoteDao dao = daoManager.getQuoteDao();
-        dao.delete(quoteId);
-        request.setAttribute(EpisodeController.PARAM_EPISODEID, episodeId);
-        return "read";
+        boolean result = dao.delete(quoteId);
+        
+        response.setContentType("application/json");
+        String json;
+        if(result){
+            //Pas d'erreur
+            json = "{\"result\":true,\"quoteId\":" + quoteId + "}";
+        }else{
+            json = "{\"result\":false,\"quoteId\":" + quoteId + "}";
+        }
+        try {
+            PrintWriter out = response.getWriter();
+            out.print(json);
+            out.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return "#";
     }
     
     private void gatherParameters(HttpServletRequest request){

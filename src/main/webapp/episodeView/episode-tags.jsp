@@ -14,7 +14,7 @@
             <tr>
                 <td>${tag.tagName}</td>
                 <td>${tag.note}</td>
-                <td></td>
+                <td><button class="btn btn-danger btn-sm btn-remove-tag" value="${tag.tagId}"><span class="glyphicon glyphicon-remove"/></button></td>
             </tr>
         </c:forEach>
         </tbody>

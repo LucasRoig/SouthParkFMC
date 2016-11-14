@@ -6,6 +6,9 @@
 
 
 $(document).ready(function () {
+    //plutot sale.
+    var episodeId = $("#episodeId")[0].value;
+
     autosize($('textarea'));
     //Fonction pour les form-switch
     $(".form-switch .btn-switch").click(function () {
@@ -35,13 +38,79 @@ $(document).ready(function () {
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(textStatus); //error logging
                     console.log(errorThrown);
-                    showErrorAfter("Impossible de créer le tag " + input, $('#addTag .select-selectize-createEnable'))
+                    showErrorAfter("Impossible de créer le tag " + input, $('#addTag .select-selectize-createEnable'));
                     callback(false);
                 }
             });
         }
     });
     $('.select-selectize-createDisable').selectize({create: false});
+    
+    //Button remove quote
+    $(".btn-remove-quote").click(function(){
+       var button = $(this)[0];
+       $.ajax({
+           url:"/episode/removeQuote",
+           data:{quoteId:button.value},
+           method:"POST",
+           success: function(data){
+               if(data.result == true){
+                   $(button).parents("tr")[0].remove();
+               }else{
+                    showErrorAfter("Echec de la suppression",$(button).parents("tr")[0])
+               }
+           },
+           error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus); //error logging
+                    console.log(errorThrown);
+                    showErrorAfter("Echec de le suppression", $(button).parents("tr")[0]);
+                }
+       });
+    });
+    
+    //Button remove apparition
+    $(".btn-remove-apparition").click(function(){
+       var button = $(this)[0];
+       $.ajax({
+           url:"/episode/removeApparition",
+           data:{characterId:button.value, episodeId:episodeId},
+           method:"POST",
+           success: function(data){
+               if(data.result == true){
+                   $(button).parents("tr")[0].remove();
+               }else{
+                    showErrorAfter("Echec de la suppression",$(button).parents("tr")[0])
+               }
+           },
+           error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus); //error logging
+                    console.log(errorThrown);
+                    showErrorAfter("Echec de le suppression", $(button).parents("tr")[0]);
+                }
+       });
+    });
+    
+    //button remove tag
+    $(".btn-remove-tag").click(function(){
+       var button = $(this)[0];
+       $.ajax({
+           url:"/episode/removeTag",
+           data:{tagId:button.value, episodeId:episodeId},
+           method:"POST",
+           success: function(data){
+               if(data.result == true){
+                   $(button).parents("tr")[0].remove();
+               }else{
+                    showErrorAfter("Echec de la suppression",$(button).parents("tr")[0])
+               }
+           },
+           error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus); //error logging
+                    console.log(errorThrown);
+                    showErrorAfter("Echec de le suppression", $(button).parents("tr")[0]);
+                }
+       });
+    });
 });
 
 function showErrorAfter(errorMessage, element){
@@ -50,4 +119,5 @@ function showErrorAfter(errorMessage, element){
         html:"<strong>Erreur : </strong> " + errorMessage
     }).insertAfter(element);
 }
+
 

@@ -13,7 +13,7 @@
                 <th>Personnage</th>
                 <th>Texte</th>
                 <th>Commentaire</th>
-                <th>Boutons</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -22,7 +22,9 @@
                     <td>${quote.characterName}</td>
                     <td>${quote.quoteText}</td>
                     <td>${quote.quoteNote}</td>
-                    <td></td>
+                    <td>
+                        <button class="btn btn-danger btn-sm btn-remove-quote" value="${quote.quoteId}"><span class="glyphicon glyphicon-remove"/></button>
+                    </td>
                 </tr>
             </c:forEach>
         </tbody>

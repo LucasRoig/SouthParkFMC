@@ -9,6 +9,8 @@ import fr.athome.southparkfmc.actions.Action;
 import fr.athome.southparkfmc.dataaccess.DaoManager;
 import fr.athome.southparkfmc.dataaccess.EpisodeDao;
 import fr.athome.southparkfmc.servlets.EpisodeController;
+import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,10 +31,24 @@ public class RemoveTag implements Action{
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         gatherParameters(request);
         EpisodeDao dao = daoManager.getEpisodeDao();
-        dao.removeTag(episodeId, tagId);
+        boolean result = dao.removeTag(episodeId, tagId);
         
-        request.setAttribute(EpisodeController.PARAM_EPISODEID, episodeId);
-        return "read";
+        response.setContentType("application/json");
+        String json;
+        if(result){
+            //Pas d'erreur
+            json = "{\"result\":true,\"tagId\":" + tagId + "}";
+        }else{
+            json = "{\"result\":false,\"tagId\":" + tagId + "}";
+        }
+        try {
+            PrintWriter out = response.getWriter();
+            out.print(json);
+            out.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return "#";
     }
     
     private void gatherParameters(HttpServletRequest request){

@@ -63,7 +63,7 @@
                                     <button type="submit" class="btn btn-primary">Valider</button> 
                                 </div>
                                 <input type="hidden" name="plot" class="form-control" value="${episode.plot}">
-                                <input type="hidden" name="episodeId" class="form-control" value="${episode.episodeId}">
+                                <input type="hidden" id="episodeId" name="episodeId" class="form-control" value="${episode.episodeId}">
                             </form>
                         </div>
                     </div>

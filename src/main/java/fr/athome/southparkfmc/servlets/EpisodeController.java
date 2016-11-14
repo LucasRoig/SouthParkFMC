@@ -37,7 +37,6 @@ public class EpisodeController extends HttpServlet {
     public static final String PARAM_QUOTE_TEXT= "quoteText";
     public static final String PARAM_QUOTE_NOTE= "quoteNote";
     public static final String PARAM_QUOTE_ID= "quoteId";
-    public static final String PARAM_APPARITION_ID= "apparitionId";
     public static final String PARAM_TAG_ID= "tagId";
     public static final String PARAM_ROLE_ID= "roleId";
     public static final String PARAM_NOTE= "note";
@@ -64,7 +63,7 @@ public class EpisodeController extends HttpServlet {
         
         if(view.endsWith(".jsp")){
             request.getRequestDispatcher("/" + view).forward(request, response);
-        }else{
+        }else if(!view.equals("#")){
             response.sendRedirect(view);
         }
         

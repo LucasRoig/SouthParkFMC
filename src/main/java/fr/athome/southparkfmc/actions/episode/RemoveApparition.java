@@ -9,6 +9,8 @@ import fr.athome.southparkfmc.actions.Action;
 import fr.athome.southparkfmc.dataaccess.DaoManager;
 import fr.athome.southparkfmc.dataaccess.EpisodeDao;
 import fr.athome.southparkfmc.servlets.EpisodeController;
+import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class RemoveApparition implements Action{
     DaoManager daoManager;
     int episodeId;
-    int apparitionId;
+    int characterId;
     
     public RemoveApparition(DaoManager daoManager) {
         this.daoManager = daoManager;
@@ -29,14 +31,28 @@ public class RemoveApparition implements Action{
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         gatherParameters(request);
         EpisodeDao dao = daoManager.getEpisodeDao();
-        dao.removeApparition(episodeId, apparitionId);
+        boolean result = dao.removeApparition(episodeId, characterId);
         
-        request.setAttribute(EpisodeController.PARAM_EPISODEID, episodeId);
-        return "read";
+        response.setContentType("application/json");
+        String json;
+        if(result){
+            //Pas d'erreur
+            json = "{\"result\":true,\"apparitionId\":" + characterId + "}";
+        }else{
+            json = "{\"result\":false,\"apparitionId\":" + characterId + "}";
+        }
+        try {
+            PrintWriter out = response.getWriter();
+            out.print(json);
+            out.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return "#";
     }
     
     private void gatherParameters(HttpServletRequest request){
         this.episodeId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_EPISODEID));
-        this.apparitionId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_APPARITION_ID));
+        this.characterId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_CHARACTERID));
     }
 }
