@@ -12,18 +12,24 @@ package fr.athome.southparkfmc.model;
 public class Apparition {
     private int characterId;
     private int episodeId;
+    private int roleId;
     private String role;
     private String note;
     private String characterName;
     private String episodeName;
 
-    public Apparition(int characterId, int episodeId, String role, String note, String characterName, String episodeName) {
+    public Apparition(int characterId, int episodeId, String role, String note, String characterName, String episodeName, int roleId) {
+        this.roleId = roleId;
         this.characterId = characterId;
         this.episodeId = episodeId;
         this.role = role;
         this.note = note;
         this.characterName = characterName;
         this.episodeName = episodeName;
+    }
+
+    public int getRoleId() {
+        return roleId;
     }
 
     /**

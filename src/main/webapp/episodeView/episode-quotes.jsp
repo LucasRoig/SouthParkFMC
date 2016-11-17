@@ -23,7 +23,18 @@
                     <td>${quote.quoteText}</td>
                     <td>${quote.quoteNote}</td>
                     <td>
-                        <button class="btn btn-danger btn-sm btn-remove-quote" value="${quote.quoteId}"><span class="glyphicon glyphicon-remove"/></button>
+                        <div class="btn-group pull-right">
+                            <button class="btn btn-danger btn-sm btn-remove-quote" value="${quote.quoteId}"><span class="glyphicon glyphicon-remove"/></button>
+                            <button class="btn btn-default btn-sm btn-edit-quote" 
+                                    data-toggle="modal" 
+                                    data-target="#editQuote"
+                                    data-quoteId ="${quote.quoteId}"
+                                    data-characterId ="${quote.characterId}"
+                                    data-note="${quote.quoteNote}"
+                                    data-text="${quote.quoteText}"
+                                    data-characterName="${quote.characterName}"
+                                    ><span class="glyphicon glyphicon-pencil"/></button>
+                        </div>
                     </td>
                 </tr>
             </c:forEach>
@@ -41,7 +52,7 @@ Envoie une requete avec les parametres suivants :
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Ajouter Une Réplique</h4>
+                <h4 class="modal-title">Ajouter Un Réplique</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" action="addQuote" method="POST">
@@ -69,6 +80,50 @@ Envoie une requete avec les parametres suivants :
                         </div>
                     </div>
                     <input type="hidden" name="episodeId" value="${episode.episodeId}">
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-default">Valider</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit quote
+Envoie une requete avec les parametres suivants :
+-->
+<div id="editQuote" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Editer Une Réplique</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" action="/episode/updateQuote" method="POST">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="characterId">Personnage : </label>
+                        <div class="col-sm-6">
+                            <input class="form-control" type="text" id="editQuoteCharacterName" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="quoteText">Réplique : </label>
+                        <div class="col-sm-6">
+                            <textarea class="form-control" name="quoteText" id="editQuoteText"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="note">Commentaire : </label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="quoteNote" id="editQuoteNote">
+                        </div>
+                    </div>
+                    <input type="hidden" name="episodeId" value="${episode.episodeId}">
+                    <input type="hidden" name="quoteId" id="editQuoteId">
+                    <input type="hidden" name="characterId" id="editQuoteCharacterId">
                     <div class="modal-footer">
                         <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-default">Valider</button>

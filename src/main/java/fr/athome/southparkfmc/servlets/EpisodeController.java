@@ -25,11 +25,11 @@ import org.slf4j.LoggerFactory;
 @WebServlet(name = "EpisodeController", urlPatterns = {"/episode/*"})
 public class EpisodeController extends HttpServlet {
     public static final String PARAM_EPISODEID = "episodeId";
-    public static final String PARAM_PRODUCTION_CODE= "productionCode";
-    public static final String PARAM_SEASON_ID= "seasonId";
-    public static final String PARAM_NAME_VO= "nameVO";
-    public static final String PARAM_NAME_VF= "nameVF";
-    public static final String PARAM_PLOT= "plot";
+    public static final String PARAM_PRODUCTION_CODE = "productionCode";
+    public static final String PARAM_SEASON_ID = "seasonId";
+    public static final String PARAM_NAME_VO = "nameVO";
+    public static final String PARAM_NAME_VF = "nameVF";
+    public static final String PARAM_PLOT = "plot";
     public static final String PARAM_INDEX_IN_SEASON= "indexInSeason";
     public static final String PARAM_ERROR= "error";
     public static final String PARAM_SELECTED_EPISODE= "episode";

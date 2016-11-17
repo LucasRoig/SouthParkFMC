@@ -20,6 +20,7 @@ public class ApparitionBuilder {
      * @throws SQLException 
      */
     static public Apparition buildFromRS (ResultSet rs) throws SQLException{
+        int roleId = rs.getInt("roleid");
         int characterId = rs.getInt("characterid");
         int episodeId = rs.getInt("episodeid");
         String note = rs.getString("apparitionNote");
@@ -31,6 +32,6 @@ public class ApparitionBuilder {
         String role = rs.getString("roleName");
         
         
-        return new Apparition(characterId, episodeId, role, note, characterName, episodeName);
+        return new Apparition(characterId, episodeId, role, note, characterName, episodeName,roleId);
     }
 }

@@ -322,6 +322,32 @@ public class EpisodeDao {
         return result;
     }
     
+    public boolean updateActiveTag(int episodeId, int tagId, String note){
+        boolean result = false; 
+        String sql = "UPDATE tagged SET taggedNote=? WHERE (episodeId = ? AND tagId = ?)";
+        Connection connection= null;
+        try {
+        connection = this.dataSource.getConnection();
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setString(1,note);
+        stmt.setInt(2,episodeId);
+        stmt.setInt(3,tagId);
+        stmt.executeUpdate();
+        result = true;
+        stmt.close();
+        connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally{
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+    
         /**
      * Ajout d'une relation entre un episode et un character (Apparition)
      * @param episodeId
@@ -342,6 +368,42 @@ public class EpisodeDao {
         stmt.setInt(2,episodeId);
         stmt.setInt(3,roleId);
         stmt.setString(4,note);
+        stmt.executeUpdate();
+        result = true;
+        stmt.close();
+        connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally{
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+    
+            /**
+     * Ajout d'une relation entre un episode et un character (Apparition)
+     * @param episodeId
+     * @param characterId
+     * @param roleId
+     * @param note
+     * @return true si l'ajout s'est termine sans erreur, false sinon
+     */
+    public boolean updateApparition(int episodeId, int characterId,int roleId, String note){
+        boolean result = false;
+        
+        String sql = "UPDATE apparition SET roleId = ?, apparitionNote = ? WHERE (episodeId = ? AND characterId = ?)";
+        Connection connection= null;
+        try {
+        connection = this.dataSource.getConnection();
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1,roleId);
+        stmt.setInt(3,episodeId);
+        stmt.setInt(4,characterId);
+        stmt.setString(2,note);
         stmt.executeUpdate();
         result = true;
         stmt.close();

@@ -12,7 +12,10 @@ import fr.athome.southparkfmc.actions.episode.ReadEpisode;
 import fr.athome.southparkfmc.actions.episode.RemoveApparition;
 import fr.athome.southparkfmc.actions.episode.RemoveQuote;
 import fr.athome.southparkfmc.actions.episode.RemoveTag;
+import fr.athome.southparkfmc.actions.episode.UpdateActiveTag;
+import fr.athome.southparkfmc.actions.episode.UpdateApparition;
 import fr.athome.southparkfmc.actions.episode.UpdateEpisode;
+import fr.athome.southparkfmc.actions.episode.UpdateQuote;
 import fr.athome.southparkfmc.actions.tag.CreateTag;
 import fr.athome.southparkfmc.dataaccess.DaoManager;
 import java.util.HashMap;
@@ -36,6 +39,9 @@ public class ActionFactory {
         actions.put("POST/episode/removeQuote", new RemoveQuote(this.daoManager));
         actions.put("POST/episode/removeTag", new RemoveTag(this.daoManager));
         actions.put("POST/episode/removeApparition", new RemoveApparition(this.daoManager));
+        actions.put("POST/episode/updateActiveTag", new UpdateActiveTag(this.daoManager));
+        actions.put("POST/episode/updateApparition", new UpdateApparition(this.daoManager));
+        actions.put("POST/episode/updateQuote", new UpdateQuote(this.daoManager));
         actions.put("POST/tag/create", new CreateTag(this.daoManager));
     }
     

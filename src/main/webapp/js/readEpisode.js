@@ -111,6 +111,49 @@ $(document).ready(function () {
                 }
        });
     });
+    
+    $("#editTag").on("show.bs.modal", function(event){      
+       var button = $(event.relatedTarget); //boutton qui a appelle le modal
+       var id = button.data('id');
+       var name = button.data('name');
+       var note = button.data('note');
+       
+       var modal = $(this);
+       modal.find('#editTagName').val(name);
+       modal.find('#editTagNote').val(note);
+       modal.find('#editTagId').val(id);
+    });
+    
+    $("#editQuote").on("show.bs.modal", function(event){      
+       var button = $(event.relatedTarget); //boutton qui a appelle le modal
+       var quoteId = button.data('quoteid');
+       var characterId = button.data('characterid');
+       var note = button.data('note');
+       var text = button.data('text');
+       var characterName = button.data('charactername');
+       
+       var modal = $(this);
+       modal.find('#editQuoteCharacterName').val(characterName);
+       modal.find('#editQuoteNote').val(note);
+       modal.find('#editQuoteText').val(text);
+       modal.find('#editQuoteCharacterId').val(characterId);
+       modal.find('#editQuoteId').val(quoteId);
+    });
+    
+    $("#editApparition").on("show.bs.modal", function(event){      
+       var button = $(event.relatedTarget); //boutton qui a appelle le modal
+       var roleid = button.data('roleid');
+       var characterId = button.data('characterid');
+       var note = button.data('note');
+       var characterName = button.data('charactername');
+       
+       var modal = $(this);
+       $(modal.find('#editApparitionRoleId')).selectize()[0].selectize.setValue(roleid);
+       modal.find('#editApparitionCharacterName').val(characterName);
+       modal.find('#editApparitionNote').val(note);
+       modal.find('#editApparitionCharacterId').val(characterId);
+    });
+    
 });
 
 function showErrorAfter(errorMessage, element){
