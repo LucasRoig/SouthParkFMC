@@ -29,6 +29,26 @@ public class SeasonDao {
     }
     
     /**
+     * Retourne le nombre total de saisons.
+     * @return le nombre total de saisons.
+     */
+    public int countSeason() throws SQLException{
+        int result = 0;
+        
+        String sql = "select count(*) as nb from season";
+        Connection connection = this.dataSource.getConnection();
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        if(rs.next()){
+            result = rs.getInt("nb");
+        }
+        rs.close();
+        stmt.close();
+        connection.close();
+        
+        return result;
+    }
+    /**
      * Retourne une saison recherchee
      * @param seasonId : id de la saison recherchee
      * @return La saison ayant pour id seasonId si elle existe

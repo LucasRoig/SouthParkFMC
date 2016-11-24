@@ -23,8 +23,8 @@ import org.slf4j.LoggerFactory;
  *
  * @author Lucas
  */
-@WebServlet(name = "TagController", urlPatterns = {"/tag/*"})
-public class TagController extends HttpServlet {
+@WebServlet(name = "SeasonController", urlPatterns = {"/season/*"})
+public class SeasonController extends HttpServlet {
 
     private static Logger LOGGER = LoggerFactory.getLogger(EpisodeController.class);
     
@@ -51,7 +51,6 @@ public class TagController extends HttpServlet {
         }else if(!view.equals("#")){
             response.sendRedirect(view);
         }
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
