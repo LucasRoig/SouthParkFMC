@@ -21,7 +21,7 @@ public class AddTag implements Action{
     int episodeId;
     int tagId;
     String note;
-    
+
     public AddTag(DaoManager daoManager) {
         this.daoManager = daoManager;
     }
@@ -31,11 +31,11 @@ public class AddTag implements Action{
         gatherParameters(request);
         EpisodeDao dao = daoManager.getEpisodeDao();
         dao.addTag(episodeId, tagId, note);
-        
+
         request.setAttribute(EpisodeController.PARAM_EPISODEID, episodeId);
         return "read?episodeId=" + this.episodeId;
     }
-    
+
     private void gatherParameters(HttpServletRequest request){
         this.episodeId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_EPISODEID));
         this.tagId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_TAG_ID));

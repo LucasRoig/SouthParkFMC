@@ -73,6 +73,6 @@ public class Apparition {
     public String getEpisodeName() {
         return episodeName;
     }
-    
-    
+
+
 }

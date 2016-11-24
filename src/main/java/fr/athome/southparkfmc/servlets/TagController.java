@@ -25,12 +25,16 @@ import org.slf4j.LoggerFactory;
  */
 @WebServlet(name = "TagController", urlPatterns = {"/tag/*"})
 public class TagController extends HttpServlet {
+  public static final String PARAM_TAGID = "tagId";
+  public static final String PARAM_TAG_NAME = "tagName";
+  public static final String PARAM_SELECTED_TAG = "tag";
+  public static final String PARAM_ERROR= "error";
 
     private static Logger LOGGER = LoggerFactory.getLogger(EpisodeController.class);
-    
-    
+
+
     ActionFactory actionFactory = new ActionFactory(new DaoManager(DataSourceSupplier.getDataSource()));
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,13 +49,13 @@ public class TagController extends HttpServlet {
         LOGGER.info("Requete reçue : " + request.getMethod()+request.getServletPath()+request.getPathInfo());
         Action action = actionFactory.getAction(request);
         String view = action.execute(request, response);
-        
+
         if(view.endsWith(".jsp")){
             request.getRequestDispatcher("/" + view).forward(request, response);
         }else if(!view.equals("#")){
             response.sendRedirect(view);
         }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

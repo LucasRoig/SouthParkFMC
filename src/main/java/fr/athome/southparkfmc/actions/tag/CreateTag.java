@@ -51,7 +51,7 @@ public class CreateTag  implements Action {
         }
         return "#";
     }
-    
+
     private void gatherParameters(HttpServletRequest request){
         this.tagName=request.getParameter("tagName");
     }

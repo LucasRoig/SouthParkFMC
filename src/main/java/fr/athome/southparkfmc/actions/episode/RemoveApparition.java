@@ -22,7 +22,8 @@ public class RemoveApparition implements Action{
     DaoManager daoManager;
     int episodeId;
     int characterId;
-    
+    int apparitionId;
+
     public RemoveApparition(DaoManager daoManager) {
         this.daoManager = daoManager;
     }
@@ -32,7 +33,7 @@ public class RemoveApparition implements Action{
         gatherParameters(request);
         EpisodeDao dao = daoManager.getEpisodeDao();
         boolean result = dao.removeApparition(episodeId, characterId);
-        
+
         response.setContentType("application/json");
         String json;
         if(result){
@@ -50,7 +51,7 @@ public class RemoveApparition implements Action{
         }
         return "#";
     }
-    
+
     private void gatherParameters(HttpServletRequest request){
         this.episodeId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_EPISODEID));
         this.characterId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_CHARACTERID));

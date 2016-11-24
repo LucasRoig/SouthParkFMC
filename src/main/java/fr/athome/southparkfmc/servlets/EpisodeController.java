@@ -40,12 +40,12 @@ public class EpisodeController extends HttpServlet {
     public static final String PARAM_TAG_ID= "tagId";
     public static final String PARAM_ROLE_ID= "roleId";
     public static final String PARAM_NOTE= "note";
-    
+
     private static Logger LOGGER = LoggerFactory.getLogger(EpisodeController.class);
-    
-    
+
+
     ActionFactory actionFactory = new ActionFactory(new DaoManager(DataSourceSupplier.getDataSource()));
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -60,13 +60,12 @@ public class EpisodeController extends HttpServlet {
         LOGGER.info("Requete reçue : " + request.getMethod()+request.getServletPath()+request.getPathInfo());
         Action action = actionFactory.getAction(request);
         String view = action.execute(request, response);
-        
+
         if(view.endsWith(".jsp")){
             request.getRequestDispatcher("/" + view).forward(request, response);
         }else if(!view.equals("#")){
             response.sendRedirect(view);
         }
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

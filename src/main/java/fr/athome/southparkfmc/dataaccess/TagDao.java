@@ -33,11 +33,11 @@ public class TagDao {
      * Retourne un tag recherche
      * @param tagId : id du tag recherche
      * @return Le tag ayant pour id tagId s'il existe
-     * @throws SQLException 
+     * @throws SQLException
      */
     public Tag find(int tagId) throws SQLException{
         Tag result = null;
-        
+
         String sql = "SELECT * FROM tag WHERE tagid=?";
         Connection connection = this.dataSource.getConnection();
         PreparedStatement stmt = connection.prepareStatement(sql);
@@ -45,36 +45,36 @@ public class TagDao {
         ResultSet rs = stmt.executeQuery();
         if(rs.next()){
             result = TagBuilder.buildFromRS(rs);
-        }      
+        }
         rs.close();
         stmt.close();
         connection.close();
-        
+
         return result;
     }
-    
+
     /**
      * Retourne tous les tags existants
      * @return La liste des tags presents dans la base
-     * @throws SQLException 
+     * @throws SQLException
      */
     public List<Tag> findAll() throws SQLException{
         List<Tag> result = new ArrayList<>();
-        
+
         String sql = "SELECT * FROM tag";
         Connection connection = this.dataSource.getConnection();
         PreparedStatement stmt = connection.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         while(rs.next()){
             result.add(TagBuilder.buildFromRS(rs));
-        }      
+        }
         rs.close();
         stmt.close();
         connection.close();
-        
+
         return result;
     }
-    
+
     /**
      * Retourne une liste d'activeTag representants les utilisations d'un tag
      * @param tagId
@@ -82,7 +82,7 @@ public class TagDao {
      */
     public List<ActiveTag> findUses(int tagId) throws SQLException{
          List<ActiveTag> result = new ArrayList<>();
-        
+
         String sql = "SELECT * FROM ("
                 + "(SELECT * FROM tagged WHERE tagid=?)AS tagged "
                 + "JOIN tag ON(tagged.tagid=tag.tagid))AS tag "
@@ -95,14 +95,14 @@ public class TagDao {
         ResultSet rs = stmt.executeQuery();
         while(rs.next()){
             result.add(ActiveTagBuilder.buildFromRS(rs));
-        }      
+        }
         rs.close();
         stmt.close();
         connection.close();
-        
+
         return result;
     }
-    
+
     /**
      * Ajoute un nouveau tag dans la base
      * @param tagName
@@ -110,7 +110,7 @@ public class TagDao {
      */
     public int create(String tagName){
         int result = -1;
-        
+
         String sql = "INSERT INTO tag (tagname) VALUES(?)";
         Connection connection= null;
         try {
@@ -134,7 +134,7 @@ public class TagDao {
         }
         return result;
     }
-    
+
     /**
      * Update d'un tag de la base
      * @param tagId
@@ -143,7 +143,7 @@ public class TagDao {
      */
     public boolean update(int tagId, String tagName){
         boolean result = false;
-        
+
         String sql = "UPDATE tag SET tagname = ? WHERE tagid = ?";
         Connection connection= null;
         try {
@@ -166,7 +166,7 @@ public class TagDao {
         }
         return result;
     }
-    
+
      /**
      * Suppression d'un tag de la base
      * @param tagId
@@ -174,7 +174,7 @@ public class TagDao {
      */
     public boolean delete(int tagId){
         boolean result = false;
-        
+
         String sql = "DELETE FROM tag WHERE tagid = ?";
         Connection connection= null;
         try {

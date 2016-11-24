@@ -13,21 +13,22 @@ import javax.sql.DataSource;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-    
+
 /**
  *
  * @author Lucas
  */
 public class DataSourceSupplier {
+
     static private Logger LOGGER = LoggerFactory.getLogger(DataSourceSupplier.class);
-    
+
     static private PGSimpleDataSource dataSource;
-    
+
     static private void initDataSource(){
         InputStream input = DataSourceSupplier.class.getClassLoader().getResourceAsStream("config.properties");
         Properties prop = new Properties();
         try {
-            prop.load(input);       
+            prop.load(input);
         } catch (IOException ex) {
             LOGGER.error("Unable to find config.properties");
         }
@@ -43,12 +44,11 @@ public class DataSourceSupplier {
         dataSource.setPassword(password);
         dataSource.setPortNumber(port);
     }
-    
+
     static public DataSource getDataSource() {
         if(dataSource == null){
             initDataSource();
         }
         return dataSource;
-    }     
-    
+    }
 }

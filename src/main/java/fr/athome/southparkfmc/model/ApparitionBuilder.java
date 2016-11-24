@@ -17,7 +17,7 @@ public class ApparitionBuilder {
      * Construit une Apparition a partir d'un resultSet
      * @param rs : ResultSet
      * @return episode construit a partir de rs
-     * @throws SQLException 
+     * @throws SQLException
      */
     static public Apparition buildFromRS (ResultSet rs) throws SQLException{
         int roleId = rs.getInt("roleid");
@@ -30,8 +30,7 @@ public class ApparitionBuilder {
             episodeName = rs.getString("namevo");
         }
         String role = rs.getString("roleName");
-        
-        
+      
         return new Apparition(characterId, episodeId, role, note, characterName, episodeName,roleId);
     }
 }

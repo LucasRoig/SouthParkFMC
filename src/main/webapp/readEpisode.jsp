@@ -24,7 +24,7 @@
         <script src="/js/autosize.js"></script>
         <script src="/js/readEpisode.js"></script>
     </head>
-    <body> 
+    <body>
         <%@include file="/header.jsp" %>
         <!--
         <div class="container">
@@ -50,22 +50,22 @@
         -->
         <div class="container">
             <center><h1>${episode.nameVF}</h1></center>
-            
+
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#resume">Résumé</a></li>
                 <li><a data-toggle="tab" href="#replique">Répliques</a></li>
                 <li><a data-toggle="tab" href="#personnage">Personnages</a></li>
                 <li><a data-toggle="tab" href="#tag">Tags</a></li>
             </ul>
-            
-            
-            
-            
+
+
+
+
             <div class="tab-content">
                 <%@include file="episodeView/episode-plot.jsp" %>
                 <%@include file="episodeView/episode-quotes.jsp" %>
                 <%@include file="episodeView/episode-tags.jsp" %>
-                <%@include file="episodeView/episode-apparitions.jsp" %>               
+                <%@include file="episodeView/episode-apparitions.jsp" %>
             </div>
         </div>
     </body>

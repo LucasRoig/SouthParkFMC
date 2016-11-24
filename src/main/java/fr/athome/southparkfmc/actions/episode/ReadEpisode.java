@@ -20,6 +20,10 @@ import fr.athome.southparkfmc.model.Role;
 import fr.athome.southparkfmc.model.Tag;
 import fr.athome.southparkfmc.servlets.EpisodeController;
 import java.util.List;
+import fr.athome.southparkfmc.dataaccess.DaoManager;
+import fr.athome.southparkfmc.dataaccess.EpisodeDao;
+import fr.athome.southparkfmc.model.Episode;
+import fr.athome.southparkfmc.servlets.EpisodeController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -35,8 +39,8 @@ public class ReadEpisode implements Action{
     public ReadEpisode(DaoManager daoManager) {
         this.daoManager = daoManager;
     }
-    
-    
+
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         this.gatherParameters(request);
@@ -52,7 +56,7 @@ public class ReadEpisode implements Action{
             List<CharacterEntity> allCharactersList = characterDao.findAll();
             List<Role> allRolesList = roleDao.findAll();
             List<Tag> allTagsList = tagDao.findAll();
-            
+
             request.setAttribute(EpisodeController.PARAM_SELECTED_EPISODE, selectedEpisode);
             request.setAttribute("apparitionList",apparitionList);
             request.setAttribute("quoteList",quoteList);
@@ -66,9 +70,9 @@ public class ReadEpisode implements Action{
         }
         return "404";
     }
-    
+
     private void gatherParameters(HttpServletRequest request){
         this.episodeId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_EPISODEID));
     }
-    
+
 }

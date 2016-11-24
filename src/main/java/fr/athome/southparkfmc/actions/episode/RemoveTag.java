@@ -22,7 +22,7 @@ public class RemoveTag implements Action{
     DaoManager daoManager;
     int episodeId;
     int tagId;
-    
+
     public RemoveTag(DaoManager daoManager) {
         this.daoManager = daoManager;
     }
@@ -32,7 +32,7 @@ public class RemoveTag implements Action{
         gatherParameters(request);
         EpisodeDao dao = daoManager.getEpisodeDao();
         boolean result = dao.removeTag(episodeId, tagId);
-        
+
         response.setContentType("application/json");
         String json;
         if(result){
@@ -50,7 +50,7 @@ public class RemoveTag implements Action{
         }
         return "#";
     }
-    
+
     private void gatherParameters(HttpServletRequest request){
         this.episodeId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_EPISODEID));
         this.tagId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_TAG_ID));

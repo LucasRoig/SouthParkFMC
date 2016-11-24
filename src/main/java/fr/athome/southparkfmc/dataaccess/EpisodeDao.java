@@ -31,16 +31,16 @@ public class EpisodeDao {
     public EpisodeDao(DataSource dataSource) {
         this.dataSource = dataSource;
     }
-    
+
     /**
      * Retourne l'episode recherche
      * @param episodeId : id de l'episode recherche
      * @return L'episode ayant pour id episodeId s'il existe
-     * @throws SQLException 
+     * @throws SQLException
      */
     public Episode find(int episodeId) throws SQLException{
         Episode result = null;
-        
+
         String sql = "SELECT * FROM episode WHERE episodeid=?";
         Connection connection = this.dataSource.getConnection();
         PreparedStatement stmt = connection.prepareStatement(sql);
@@ -48,45 +48,45 @@ public class EpisodeDao {
         ResultSet rs = stmt.executeQuery();
         if(rs.next()){
             result = EpisodeBuilder.buildFromRS(rs);
-        }      
+        }
         rs.close();
         stmt.close();
         connection.close();
-        
+
         return result;
     }
-    
+
     /**
      * Retourne tous les episodes existants
      * @return La liste des episodes presents dans la base
-     * @throws SQLException 
+     * @throws SQLException
      */
     public List<Episode> findAll() throws SQLException{
         List<Episode> result = new ArrayList<>();
-        
+
         String sql = "SELECT * FROM episode";
         Connection connection = this.dataSource.getConnection();
         PreparedStatement stmt = connection.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         while(rs.next()){
             result.add(EpisodeBuilder.buildFromRS(rs));
-        }      
+        }
         rs.close();
         stmt.close();
         connection.close();
-        
+
         return result;
     }
-    
+
     /**
      * Retourne tous les tags actifs sur l'episode
      * @return La liste de tous les tags actifs sur l'episode
      * @param episodeId
-     * @throws SQLException 
+     * @throws SQLException
      */
     public List<ActiveTag> findActiveTag(int episodeId) throws SQLException{
         List<ActiveTag> result = new ArrayList<>();
-        
+
         String sql = "SELECT * FROM ("
                 + "(SELECT * FROM tagged WHERE episodeid=?)AS tagged "
                 + "JOIN tag ON(tagged.tagid=tag.tagid))AS tag "
@@ -100,23 +100,23 @@ public class EpisodeDao {
         ResultSet rs = stmt.executeQuery();
         while(rs.next()){
             result.add(ActiveTagBuilder.buildFromRS(rs));
-        }      
+        }
         rs.close();
         stmt.close();
         connection.close();
-        
+
         return result;
     }
-    
+
     /**
      * Retourne toutes les apparitions d'un episode
      * @return La liste de toutes les apparitions d'un episode
      * @param episodeId
-     * @throws SQLException 
+     * @throws SQLException
      */
     public List<Apparition> findApparition(int episodeId) throws SQLException{
         List<Apparition> result = new ArrayList<>();
-        
+
         String sql = "SELECT * FROM " +
                     "(((SELECT * FROM apparition WHERE episodeId = ?)AS apparition " +
                     "JOIN " +
@@ -132,27 +132,27 @@ public class EpisodeDao {
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1, episodeId);
         stmt.setInt(2, episodeId);
-        
+
         ResultSet rs = stmt.executeQuery();
         while(rs.next()){
             result.add(ApparitionBuilder.buildFromRS(rs));
-        }      
+        }
         rs.close();
         stmt.close();
         connection.close();
-        
+
         return result;
     }
-    
+
         /**
      * Retourne les quotes d'un episode
      * @param episodeId
      * @return La liste des quotes d'un episode
-     * @throws SQLException 
+     * @throws SQLException
      */
     public List<Quote> findQuotes(int episodeId) throws SQLException{
         List<Quote> result = new ArrayList<>();
-        
+
         String sql = "SELECT * FROM " +
                     "((SELECT * FROM quote WHERE episodeid=?)AS quote " +
                     "LEFT JOIN " +
@@ -165,18 +165,18 @@ public class EpisodeDao {
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1, episodeId);
         stmt.setInt(2, episodeId);
-        
+
         ResultSet rs = stmt.executeQuery();
         while(rs.next()){
             result.add(QuoteBuilder.buildFromRS(rs));
-        }      
+        }
         rs.close();
         stmt.close();
         connection.close();
-        
+
         return result;
     }
-    
+
     /**
      * Ajoute un nouvel episode dans la base
      * @param productionCode
@@ -189,7 +189,7 @@ public class EpisodeDao {
      */
     public boolean create(int productionCode, int SeasonId, String nameVO, String nameVF, String plot, int indexInSeason){
         boolean result = false;
-        
+
         String sql = "INSERT INTO episode (productioncode,seasonid,namevo,namevf,plot,indexinseason) VALUES(?,?,?,?,?,?)";
         Connection connection= null;
         try {
@@ -216,7 +216,7 @@ public class EpisodeDao {
         }
         return result;
     }
-    
+
     /**
      * Update un episode de la base
      * @param episodeId
@@ -230,7 +230,7 @@ public class EpisodeDao {
      */
     public boolean update(int episodeId, int productionCode, int SeasonId, String nameVO, String nameVF, String plot, int indexInSeason){
         boolean result = false;
-        
+
         String sql = "UPDATE episode SET productioncode=?,seasonId=?,nameVO=?,nameVF=?,plot=?,indexInSeason=? WHERE episodeId=?";
         Connection connection= null;
         try {
@@ -258,7 +258,7 @@ public class EpisodeDao {
         }
         return result;
     }
-    
+
     /**
      * Suppression d'un episode de la base
      * @param episodeId
@@ -266,7 +266,7 @@ public class EpisodeDao {
      */
     public boolean delete(int episodeId){
         boolean result = false;
-        
+
         String sql = "DELETE FROM episode WHERE episodeid = ?";
         Connection connection= null;
         try {
@@ -288,7 +288,7 @@ public class EpisodeDao {
         }
         return result;
     }
-    
+
     /**
      * Ajout d'une relation entre un episode et un tag (ActiveTag)
      * @param episodeId
@@ -297,7 +297,7 @@ public class EpisodeDao {
      * @return true si l'ajout s'est termine sans erreur, false sinon
      */
     public boolean addTag(int episodeId, int tagId, String note){
-        boolean result = false; 
+        boolean result = false;
         String sql = "INSERT INTO tagged VALUES(?,?,?)";
         Connection connection= null;
         try {
@@ -321,9 +321,9 @@ public class EpisodeDao {
         }
         return result;
     }
-    
+
     public boolean updateActiveTag(int episodeId, int tagId, String note){
-        boolean result = false; 
+        boolean result = false;
         String sql = "UPDATE tagged SET taggedNote=? WHERE (episodeId = ? AND tagId = ?)";
         Connection connection= null;
         try {
@@ -347,7 +347,7 @@ public class EpisodeDao {
         }
         return result;
     }
-    
+
         /**
      * Ajout d'une relation entre un episode et un character (Apparition)
      * @param episodeId
@@ -358,7 +358,7 @@ public class EpisodeDao {
      */
     public boolean addApparition(int episodeId, int characterId,int roleId, String note){
         boolean result = false;
-        
+
         String sql = "INSERT INTO apparition VALUES(?,?,?,?)";
         Connection connection= null;
         try {
@@ -394,7 +394,7 @@ public class EpisodeDao {
      */
     public boolean updateApparition(int episodeId, int characterId,int roleId, String note){
         boolean result = false;
-        
+
         String sql = "UPDATE apparition SET roleId = ?, apparitionNote = ? WHERE (episodeId = ? AND characterId = ?)";
         Connection connection= null;
         try {
@@ -419,7 +419,7 @@ public class EpisodeDao {
         }
         return result;
     }
-    
+
     /**
      * Suppression d'une relation entre un episode et un tag
      * @param episodeId
@@ -428,7 +428,7 @@ public class EpisodeDao {
      */
     public boolean removeTag(int episodeId,int tagId){
         boolean result = false;
-        
+
         String sql = "DELETE FROM tagged WHERE (episodeid = ? AND tagid=?)";
         Connection connection= null;
         try {
@@ -451,7 +451,7 @@ public class EpisodeDao {
         }
         return result;
     }
-    
+
     /**
      * Suppression d'une relation entre un episode et un character
      * @param episodeId
@@ -460,7 +460,7 @@ public class EpisodeDao {
      */
     public boolean removeApparition(int episodeId,int characterId){
         boolean result = false;
-        
+
         String sql = "DELETE FROM apparition WHERE (episodeid = ? AND characterid=?)";
         Connection connection= null;
         try {

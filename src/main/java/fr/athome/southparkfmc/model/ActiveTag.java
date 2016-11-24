@@ -36,6 +36,7 @@ public class ActiveTag {
      */
     public int getEpisodeId() {
         return episodeId;
+
     }
 
     /**

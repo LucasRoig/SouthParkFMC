@@ -25,12 +25,15 @@ import org.slf4j.LoggerFactory;
  */
 @WebServlet(name = "SeasonController", urlPatterns = {"/season/*"})
 public class SeasonController extends HttpServlet {
-
+  public static final String PARAM_SEASONID = "seasonId";
+  public static final String PARAM_DIFFUSION_YEAR = "diffusionYear";
+  public static final String PARAM_SELECTED_SEASON = "season";
+  public static final String PARAM_ERROR= "error";
     private static Logger LOGGER = LoggerFactory.getLogger(EpisodeController.class);
-    
-    
+
+
     ActionFactory actionFactory = new ActionFactory(new DaoManager(DataSourceSupplier.getDataSource()));
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,7 +48,7 @@ public class SeasonController extends HttpServlet {
         LOGGER.info("Requete reçue : " + request.getMethod()+request.getServletPath()+request.getPathInfo());
         Action action = actionFactory.getAction(request);
         String view = action.execute(request, response);
-        
+
         if(view.endsWith(".jsp")){
             request.getRequestDispatcher("/" + view).forward(request, response);
         }else if(!view.equals("#")){

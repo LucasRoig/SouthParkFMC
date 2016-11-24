@@ -22,7 +22,7 @@ public class AddApparition implements Action{
     int characterId;
     int roleId;
     String note;
-    
+
     public AddApparition(DaoManager daoManager) {
         this.daoManager = daoManager;
     }
@@ -32,11 +32,11 @@ public class AddApparition implements Action{
         gatherParameters(request);
         EpisodeDao dao = daoManager.getEpisodeDao();
         dao.addApparition(episodeId, characterId, roleId, note);
-        
+
         request.setAttribute(EpisodeController.PARAM_EPISODEID, episodeId);
         return "read?episodeId=" + episodeId;
     }
-    
+
     private void gatherParameters(HttpServletRequest request){
         this.episodeId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_EPISODEID));
         this.characterId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_CHARACTERID));

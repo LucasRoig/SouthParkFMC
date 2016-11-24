@@ -30,7 +30,7 @@ public class DeleteEpisode implements Action{
         dao.delete(episodeId);
         return "/season/readAll";
     }
- 
+
     private void gatherParameters(HttpServletRequest request){
         episodeId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_EPISODEID));
     }

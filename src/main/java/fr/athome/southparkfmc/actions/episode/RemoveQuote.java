@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class RemoveQuote implements Action{
     DaoManager daoManager;
     int quoteId;
+    int episodeId;
 
     public RemoveQuote(DaoManager daoManager) {
         this.daoManager = daoManager;
@@ -31,7 +32,7 @@ public class RemoveQuote implements Action{
         this.gatherParameters(request);
         QuoteDao dao = daoManager.getQuoteDao();
         boolean result = dao.delete(quoteId);
-        
+
         response.setContentType("application/json");
         String json;
         if(result){
@@ -49,7 +50,7 @@ public class RemoveQuote implements Action{
         }
         return "#";
     }
-    
+
     private void gatherParameters(HttpServletRequest request){
         this.quoteId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_QUOTE_ID));
     }

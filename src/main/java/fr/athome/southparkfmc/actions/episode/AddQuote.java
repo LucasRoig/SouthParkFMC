@@ -22,7 +22,7 @@ public class AddQuote implements Action{
     int characterId;
     String quoteText;
     String quoteNote;
-    
+
     public AddQuote(DaoManager daoManager) {
         this.daoManager = daoManager;
     }
@@ -35,19 +35,19 @@ public class AddQuote implements Action{
             dao.create(episodeId, characterId, quoteText, quoteNote);
         }else{
             System.err.println("paramètres non valides");
-            request.setAttribute(EpisodeController.PARAM_ERROR, "Paramètres non valides");            
+            request.setAttribute(EpisodeController.PARAM_ERROR, "Paramètres non valides");
         }
         request.setAttribute(EpisodeController.PARAM_SELECTED_EPISODE, episodeId);
         return"read?episodeId=" + this.episodeId;
     }
-    
+
     private void gatherParameters(HttpServletRequest request){
         this.episodeId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_EPISODEID));
         this.characterId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_CHARACTERID));
         this.quoteText = request.getParameter(EpisodeController.PARAM_QUOTE_TEXT);
         this.quoteNote = request.getParameter(EpisodeController.PARAM_QUOTE_NOTE);
     }
-    
+
     private boolean validateParameters(){
         if(quoteText.isEmpty()){
             return false;
