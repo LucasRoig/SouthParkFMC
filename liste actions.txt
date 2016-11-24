@@ -1,4 +1,5 @@
-#Episode
+#EPISODE
+
 UpdateEpisode POST /episode/update
 int episodeId, int productionCode, int SeasonId, String nameVO, String nameVF, String plot, int indexInSeason
 -> readEpisode
@@ -39,7 +40,8 @@ ReadEpisode GET /episode/read
 int episodeId
 -> jsp
 
-#Season
+#SEASON
+
 CreateSeason POST /season/create
 int seasonId, int diffusionYear
 -> readAllSeason
@@ -76,7 +78,8 @@ int tagId
 ReadAllTag GET /tag/readAll
 -> jsp
 
-#Quote
+#QUOTE
+
 UpdateQuote POST /quote/update
 int quoteId,int episodeId,int characterId,String quoteText, String quoteNote
 -> ReadEpisode
