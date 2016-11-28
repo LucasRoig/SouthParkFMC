@@ -23,7 +23,7 @@ public class CreateEpisode implements Action{
     String nameVo;
     String nameVf;
     String plot;
-    String indexInSeason;
+    int indexInSeason;
 
     public CreateEpisode(DaoManager daoManager) {
         this.daoManager = daoManager;
@@ -34,13 +34,13 @@ public class CreateEpisode implements Action{
         this.gatherParameters(request);
         if(this.validateParameters()){
             EpisodeDao dao = this.daoManager.getEpisodeDao();
-            dao.create(productionCode, seasonId, nameVo, nameVf, plot, seasonId);
+            dao.create(productionCode, seasonId, nameVo, nameVf, plot, indexInSeason);
             
         }else{
             request.setAttribute(EpisodeController.PARAM_ERROR, "Paramètres invalides");
             System.err.println("Parametres invalides");
         }
-        return "/season/readAll";
+        return "/season/read?selectedSeason="+this.seasonId;
     }
     
     private void gatherParameters(HttpServletRequest request){
@@ -49,7 +49,7 @@ public class CreateEpisode implements Action{
         this.nameVo = request.getParameter(EpisodeController.PARAM_NAME_VO);
         this.nameVf = request.getParameter(EpisodeController.PARAM_NAME_VF);
         this.plot = request.getParameter(EpisodeController.PARAM_PLOT);
-        this.indexInSeason = request.getParameter(EpisodeController.PARAM_INDEX_IN_SEASON);
+        this.indexInSeason = Integer.valueOf(request.getParameter(EpisodeController.PARAM_INDEX_IN_SEASON));
     }
     
     private boolean validateParameters(){

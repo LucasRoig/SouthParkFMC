@@ -5,6 +5,10 @@
  */
 package fr.athome.southparkfmc.servlets;
 
+import fr.athome.southparkfmc.actions.Action;
+import fr.athome.southparkfmc.actions.ActionFactory;
+import fr.athome.southparkfmc.dataaccess.DaoManager;
+import fr.athome.southparkfmc.dataaccess.DataSourceSupplier;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,18 +16,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Bruce
  */
-@WebServlet(name = "CharacterController", urlPatterns = {"/CharacterController"})
+@WebServlet(name = "CharacterController", urlPatterns = {"/character/*"})
 public class CharacterController extends HttpServlet {
     public static final String PARAM_CHARACTERID = "characterId";
     public static final String PARAM_CHARACTER_NAME = "characterName";
     public static final String PARAM_BACKGROUND = "background";
     public static final String PARAM_SELECTED_CHARACTER = "character";
     public static final String PARAM_ERROR= "error";
+
+    private static Logger LOGGER = LoggerFactory.getLogger(EpisodeController.class);
+
+
+    ActionFactory actionFactory = new ActionFactory(new DaoManager(DataSourceSupplier.getDataSource()));
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,18 +47,14 @@ public class CharacterController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CharacterController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CharacterController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        LOGGER.info("Requete reçue : " + request.getMethod()+request.getServletPath()+request.getPathInfo());
+        Action action = actionFactory.getAction(request);
+        String view = action.execute(request, response);
+
+        if(view.endsWith(".jsp")){
+            request.getRequestDispatcher("/" + view).forward(request, response);
+        }else if(!view.equals("#")){
+            response.sendRedirect(view);
         }
     }
 

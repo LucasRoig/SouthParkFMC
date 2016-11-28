@@ -187,7 +187,7 @@ public class EpisodeDao {
      * @param indexInSeason
      * @return true si l'ajout s'est termine sans erreur, false sinon
      */
-    public boolean create(int productionCode, int SeasonId, String nameVO, String nameVF, String plot, int indexInSeason){
+    public boolean create(int productionCode, int seasonId, String nameVO, String nameVF, String plot, int indexInSeason){
         boolean result = false;
 
         String sql = "INSERT INTO episode (productioncode,seasonid,namevo,namevf,plot,indexinseason) VALUES(?,?,?,?,?,?)";
@@ -196,7 +196,7 @@ public class EpisodeDao {
         connection = this.dataSource.getConnection();
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1,productionCode);
-        stmt.setInt(2,SeasonId);
+        stmt.setInt(2,seasonId);
         stmt.setString(3,nameVO);
         stmt.setString(4,nameVF);
         stmt.setString(5,plot);

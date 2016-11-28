@@ -5,9 +5,11 @@
  */
 package fr.athome.southparkfmc.actions;
 
+import fr.athome.southparkfmc.actions.character.CreateCharacter;
 import fr.athome.southparkfmc.actions.episode.AddApparition;
 import fr.athome.southparkfmc.actions.episode.AddQuote;
 import fr.athome.southparkfmc.actions.episode.AddTag;
+import fr.athome.southparkfmc.actions.episode.CreateEpisode;
 import fr.athome.southparkfmc.actions.episode.ReadEpisode;
 import fr.athome.southparkfmc.actions.episode.RemoveApparition;
 import fr.athome.southparkfmc.actions.episode.RemoveQuote;
@@ -20,6 +22,7 @@ import fr.athome.southparkfmc.actions.season.ReadSeason;
 import fr.athome.southparkfmc.actions.tag.CreateTag;
 import fr.athome.southparkfmc.actions.episode.ReadEpisode;
 import fr.athome.southparkfmc.actions.episode.UpdateEpisode;
+import fr.athome.southparkfmc.actions.season.CreateSeason;
 import fr.athome.southparkfmc.dataaccess.DaoManager;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +38,7 @@ public class ActionFactory {
     public ActionFactory(DaoManager daoManager) {
         this.daoManager = daoManager;
         actions.put("GET/episode/read", new ReadEpisode(this.daoManager));
+        actions.put("POST/episode/create", new CreateEpisode(this.daoManager));
         actions.put("POST/episode/update", new UpdateEpisode(this.daoManager));
         actions.put("POST/episode/addApparition", new AddApparition(this.daoManager));
         actions.put("POST/episode/addTag", new AddTag(this.daoManager));
@@ -47,6 +51,8 @@ public class ActionFactory {
         actions.put("POST/episode/updateQuote", new UpdateQuote(this.daoManager));
         actions.put("POST/tag/create", new CreateTag(this.daoManager));
         actions.put("GET/season/read", new ReadSeason(this.daoManager));
+        actions.put("POST/season/create", new CreateSeason(this.daoManager));
+        actions.put("POST/character/create", new CreateCharacter(this.daoManager));
     }
 
     public Action getAction(HttpServletRequest request){

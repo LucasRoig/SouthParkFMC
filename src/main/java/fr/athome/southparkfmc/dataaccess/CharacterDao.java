@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
@@ -114,17 +115,19 @@ public class CharacterDao {
      * @param characterName
      * @return true si l'ajout s'est termine sans erreur, false sinon
      */
-    public boolean create(String characterName){
-        boolean result = false;
+    public int create(String characterName){
+        int result = -1;
         
         String sql = "INSERT INTO characters (charactername) VALUES(?)";
         Connection connection= null;
         try {
         connection = this.dataSource.getConnection();
-        PreparedStatement stmt = connection.prepareStatement(sql);
+        PreparedStatement stmt = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
         stmt.setString(1, characterName);
         stmt.executeUpdate();
-        result = true;
+        ResultSet rs = stmt.getGeneratedKeys();
+        rs.next();
+        result = rs.getInt("characterId");
         stmt.close();
         connection.close();
         } catch (SQLException e) {

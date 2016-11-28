@@ -25,7 +25,7 @@
 <%@include file="header.jsp" %>
         <div class="container">
             <div class="jumbotron text-center">
-                <h1>South Park DB</h1><form class="">
+                <h1>South Park FMC</h1><form class="">
                 <div class="input-group">
                     <input type="text" class="form-control input-lg" placeholder="Search">
                             <span class="input-group-btn">
