@@ -94,7 +94,7 @@ public class QuoteDao {
      * @param quoteNote
      * @return true si l'ajout s'est termine sans erreur, false sinon
      */
-    public boolean create(int episodeId,int characterId,String quoteText, String quoteNote){
+    public boolean createWithCharacter(int episodeId,int characterId,String quoteText, String quoteNote){
         boolean result = false;
         
         String sql = "INSERT INTO quote (episodeid,characterid,quotetext,quotenote) VALUES(?,?,?,?)";
@@ -106,6 +106,40 @@ public class QuoteDao {
         stmt.setInt(2,characterId);
         stmt.setString(3, quoteText);
         stmt.setString(4, quoteNote);
+        stmt.executeUpdate();
+        result = true;
+        stmt.close();
+        connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally{
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+    
+    /**
+     * Ajoute une nouvelle quote dans la base
+     * @param episodeId
+     * @param quoteText
+     * @param quoteNote
+     * @return true si l'ajout s'est termine sans erreur, false sinon
+     */
+    public boolean createWithoutCharacter(int episodeId,String quoteText, String quoteNote){
+        boolean result = false;
+        
+        String sql = "INSERT INTO quote (episodeid,quotetext,quotenote) VALUES(?,?,?)";
+        Connection connection= null;
+        try {
+        connection = this.dataSource.getConnection();
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1,episodeId);
+        stmt.setString(2, quoteText);
+        stmt.setString(3, quoteNote);
         stmt.executeUpdate();
         result = true;
         stmt.close();

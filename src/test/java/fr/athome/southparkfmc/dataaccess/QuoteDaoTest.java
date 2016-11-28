@@ -74,7 +74,7 @@ public class QuoteDaoTest {
     }
 
     /**
-     * Test of create method, of class QuoteDao.
+     * Test of createWithCharacter method, of class QuoteDao.
      */
     @Test
     public void testCreate() throws SQLException {
@@ -82,7 +82,7 @@ public class QuoteDaoTest {
         int characterId = 1;
         String quoteText = "bli blu";
         String quoteNote = "";
-        dao.create(episodeId, characterId, quoteText, quoteNote);
+        dao.createWithCharacter(episodeId, characterId, quoteText, quoteNote);
         assertEquals(3, dao.findAll().size());
     }
 

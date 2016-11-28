@@ -32,7 +32,10 @@ public class AddQuote implements Action{
         this.gatherParameters(request);
         if(this.validateParameters()){
             QuoteDao dao = daoManager.getQuoteDao();
-            dao.create(episodeId, characterId, quoteText, quoteNote);
+            if(characterId != -1)
+                dao.createWithCharacter(episodeId, characterId, quoteText, quoteNote);
+            else
+                dao.createWithoutCharacter(episodeId, quoteText, quoteNote);
         }else{
             System.err.println("paramètres non valides");
             request.setAttribute(EpisodeController.PARAM_ERROR, "Paramètres non valides");
@@ -43,7 +46,13 @@ public class AddQuote implements Action{
 
     private void gatherParameters(HttpServletRequest request){
         this.episodeId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_EPISODEID));
-        this.characterId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_CHARACTERID));
+        try {
+            this.characterId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_CHARACTERID));
+        } catch (Exception e) {
+            //Pas de personnage spécifié.
+            this.characterId = -1;
+        }
+
         this.quoteText = request.getParameter(EpisodeController.PARAM_QUOTE_TEXT);
         this.quoteNote = request.getParameter(EpisodeController.PARAM_QUOTE_NOTE);
     }
