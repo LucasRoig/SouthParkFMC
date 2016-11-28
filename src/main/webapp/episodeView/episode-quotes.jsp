@@ -76,7 +76,7 @@ Envoie une requete avec les parametres suivants :
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="note">Commentaire : </label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="note">
+                            <input type="text" class="form-control" name="quoteNote">
                         </div>
                     </div>
                     <input type="hidden" name="episodeId" value="${episode.episodeId}">
