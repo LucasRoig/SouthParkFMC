@@ -76,7 +76,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="row">
-                                <div class="col-sm-10"><h4>Informations</h4></div>
+                                <div class="col-sm-10"><h4>Résumé</h4></div>
                                 <div class="col-sm-2"><button class="btn btn-primary pull-right btn-switch"><span class ="glyphicon glyphicon-pencil"></span></button></div>
                             </div>
                         </div>
@@ -91,10 +91,10 @@
                 <div class ="back">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4>Editer les informations</h4>
+                            <h4>Editer le résumé</h4>
                         </div>
                         <div class="panel-body">
-                            <form method="POST" action="update">
+                            <form method="POST" action="/episode/update">
                                 <div class="form-group">
                                     <textarea name="plot" class="form-control">${episode.plot}</textarea>
                                 </div>

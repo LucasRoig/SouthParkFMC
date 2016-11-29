@@ -30,8 +30,9 @@ $(document).ready(function () {
                 success: function (data) {
                     if(data.result == true){
                         callback({value:data.characterId, text:input});
+                    }else{
+                        showErrorAfter("Impossible de créer le personnage " + input, $('#addTag .select-selectize-createEnable').parents(".form-group"));
                     }
-                    showErrorAfter("Impossible de créer le personnage " + input, $('#addTag .select-selectize-createEnable').parents(".form-group"));
                     callback(false);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -52,8 +53,9 @@ $(document).ready(function () {
                 success: function (data) {
                     if(data.result == true){
                         callback({value:data.tagId, text:input});
+                    }else{
+                        showErrorAfter("Impossible de créer le tag " + input, $('#addTag .select-selectize-createEnable').parents(".form-group"));
                     }
-                    showErrorAfter("Impossible de créer le tag " + input, $('#addTag .select-selectize-createEnable').parents(".form-group"));
                     callback(false);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {

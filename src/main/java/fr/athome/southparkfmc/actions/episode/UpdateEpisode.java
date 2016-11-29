@@ -24,7 +24,7 @@ public class UpdateEpisode implements Action{
     String nameVo;
     String nameVf;
     String plot;
-    String indexInSeason;
+    int indexInSeason;
 
     public UpdateEpisode(DaoManager daoManager) {
         this.daoManager = daoManager;
@@ -35,7 +35,7 @@ public class UpdateEpisode implements Action{
         this.gatherParameters(request);
         if(this.validateParameters()){
             EpisodeDao dao = this.daoManager.getEpisodeDao();
-            dao.update(episodeId, productionCode, seasonId, nameVo, nameVf, plot, seasonId);
+            dao.update(episodeId, productionCode, seasonId, nameVo, nameVf, plot, indexInSeason);
             
         }else{
             request.setAttribute(EpisodeController.PARAM_ERROR, "Paramètres invalides");
@@ -52,7 +52,7 @@ public class UpdateEpisode implements Action{
         this.nameVo = request.getParameter(EpisodeController.PARAM_NAME_VO);
         this.nameVf = request.getParameter(EpisodeController.PARAM_NAME_VF);
         this.plot = request.getParameter(EpisodeController.PARAM_PLOT);
-        this.indexInSeason = request.getParameter(EpisodeController.PARAM_INDEX_IN_SEASON);
+        this.indexInSeason = Integer.parseInt(request.getParameter(EpisodeController.PARAM_INDEX_IN_SEASON));
     }
     
     private boolean validateParameters(){
