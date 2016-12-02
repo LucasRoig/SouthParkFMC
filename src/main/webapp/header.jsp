@@ -22,6 +22,7 @@
                         <li><a href="/">Home <span class="sr-only">(current)</span></a></li>
                         <li><a href="/season/read">Saisons</a></li>
                         <li><a href="Personnages">Personnage</a></li>
+                        <li><a href="/tag/readAll">Tags</a></li>
                     </ul>
                     <form class="nav navbar-nav navbar-right navbar-form">
                         <div class="input-group">

@@ -30,7 +30,7 @@ public class TagController extends HttpServlet {
   public static final String PARAM_SELECTED_TAG = "tag";
   public static final String PARAM_ERROR= "error";
 
-    private static Logger LOGGER = LoggerFactory.getLogger(EpisodeController.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(TagController.class);
 
 
     ActionFactory actionFactory = new ActionFactory(new DaoManager(DataSourceSupplier.getDataSource()));
