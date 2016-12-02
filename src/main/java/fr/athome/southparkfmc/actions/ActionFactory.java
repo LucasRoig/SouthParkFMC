@@ -23,6 +23,8 @@ import fr.athome.southparkfmc.actions.tag.CreateTag;
 import fr.athome.southparkfmc.actions.episode.ReadEpisode;
 import fr.athome.southparkfmc.actions.episode.UpdateEpisode;
 import fr.athome.southparkfmc.actions.season.CreateSeason;
+import fr.athome.southparkfmc.actions.tag.ReadAllTag;
+import fr.athome.southparkfmc.actions.tag.ReadTag;
 import fr.athome.southparkfmc.dataaccess.DaoManager;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
@@ -53,6 +55,8 @@ public class ActionFactory {
         actions.put("GET/season/read", new ReadSeason(this.daoManager));
         actions.put("POST/season/create", new CreateSeason(this.daoManager));
         actions.put("POST/character/create", new CreateCharacter(this.daoManager));
+        actions.put("GET/tag/readAll", new ReadAllTag(this.daoManager));
+        actions.put("GET/tag/read", new ReadTag(this.daoManager));
     }
 
     public Action getAction(HttpServletRequest request){
