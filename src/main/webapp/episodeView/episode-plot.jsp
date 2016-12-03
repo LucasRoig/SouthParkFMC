@@ -12,7 +12,11 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-sm-10"><h4>Informations</h4></div>
-                                <div class="col-sm-2"><button class="btn btn-primary pull-right btn-switch" id="editInfos"><span class ="glyphicon glyphicon-pencil"></span></button></div>
+                                <div class="col-sm-2">
+                                    <c:if test="${(!empty sessionScope.user) && (sessionScope.user.privilege == 'ADMIN')}">
+                                        <button class="btn btn-primary pull-right btn-switch" id="editInfos"><span class ="glyphicon glyphicon-pencil"></span></button>
+                                        </c:if>
+                                </div>
                             </div>
                         </div>
                         <div class="list-group-item">
@@ -77,14 +81,18 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-sm-10"><h4>Résumé</h4></div>
-                                <div class="col-sm-2"><button class="btn btn-primary pull-right btn-switch"><span class ="glyphicon glyphicon-pencil"></span></button></div>
+                                <div class="col-sm-2">
+                                    <c:if test="${(!empty sessionScope.user) && (sessionScope.user.privilege == 'ADMIN')}">
+                                        <button class="btn btn-primary pull-right btn-switch"><span class ="glyphicon glyphicon-pencil"></span></button>
+                                        </c:if>
+                                </div>
                             </div>
                         </div>
                         <div class="panel-body">                            
-                                <% pageContext.setAttribute("newLineChar", "\n"); %> 
-                                <c:forEach var="p" items="${fn:split(episode.plot, newLineChar)}">
-                                    <p>${p}</p>
-                                </c:forEach>
+                            <% pageContext.setAttribute("newLineChar", "\n");%> 
+                            <c:forEach var="p" items="${fn:split(episode.plot, newLineChar)}">
+                                <p>${p}</p>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>

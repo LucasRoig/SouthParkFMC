@@ -16,14 +16,16 @@
                 <td class="tagNote" value="${tag.note}">${tag.note}</td>
                 <td>
                     <div class="btn-group pull-right">
-                        <button class="btn btn-danger btn-sm btn-remove-tag" value="${tag.tagId}"><span class="glyphicon glyphicon-remove"/></button>
-                        <button class="btn btn-default btn-sm btn-edit-tag" 
-                                data-toggle="modal" 
-                                data-target="#editTag" 
-                                data-name="${tag.tagName}"
-                                data-id="${tag.tagId}"
-                                data-note="${tag.note}"
-                                ><span class="glyphicon glyphicon-pencil"/></button>
+                        <c:if test="${(!empty sessionScope.user) && (sessionScope.user.privilege == 'ADMIN')}">
+                            <button class="btn btn-danger btn-sm btn-remove-tag" value="${tag.tagId}"><span class="glyphicon glyphicon-remove"/></button>
+                            <button class="btn btn-default btn-sm btn-edit-tag" 
+                                    data-toggle="modal" 
+                                    data-target="#editTag" 
+                                    data-name="${tag.tagName}"
+                                    data-id="${tag.tagId}"
+                                    data-note="${tag.note}"
+                                    ><span class="glyphicon glyphicon-pencil"/></button>
+                        </c:if>
                     </div>
                 </td>
             </tr>
@@ -31,7 +33,9 @@
 
         </tbody>
     </table>
-    <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#addTag"><span class ="glyphicon glyphicon-plus"></span> Ajouter un tag</button>
+    <c:if test="${(!empty sessionScope.user) && (sessionScope.user.privilege == 'ADMIN')}">
+        <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#addTag"><span class ="glyphicon glyphicon-plus"></span> Ajouter un tag</button>
+    </c:if>
 </div>
 
 <!-- Modal Ajout tag
