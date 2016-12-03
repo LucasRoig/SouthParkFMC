@@ -32,13 +32,14 @@ public class UserDao {
      * @return L'user ayant pour login userLogin s'il existe
      * @throws SQLException 
      */
-    public User find(String userLogin) throws SQLException{
+    public User find(String userLogin, String userPassword) throws SQLException{
         User result = null;
         
-        String sql = "SELECT * FROM users WHERE userLogin=?";
+        String sql = "SELECT * FROM users WHERE (userLogin=? AND userPassword=?)";
         Connection connection = this.dataSource.getConnection();
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setString(1, userLogin);
+        stmt.setString(2, userPassword);
         ResultSet rs = stmt.executeQuery();
         if(rs.next()){
             result = UserBuilder.buildFromRS(rs);

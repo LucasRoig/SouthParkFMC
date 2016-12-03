@@ -5,6 +5,9 @@
  */
 package fr.athome.southparkfmc.actions;
 
+import fr.athome.southparkfmc.actions.authentication.GetLoginPage;
+import fr.athome.southparkfmc.actions.authentication.LoginAction;
+import fr.athome.southparkfmc.actions.authentication.LogoutAction;
 import fr.athome.southparkfmc.actions.character.CreateCharacter;
 import fr.athome.southparkfmc.actions.episode.AddApparition;
 import fr.athome.southparkfmc.actions.episode.AddQuote;
@@ -57,6 +60,9 @@ public class ActionFactory {
         actions.put("POST/character/create", new CreateCharacter(this.daoManager));
         actions.put("GET/tag/readAll", new ReadAllTag(this.daoManager));
         actions.put("GET/tag/read", new ReadTag(this.daoManager));
+        actions.put("GET/authentication/login", new GetLoginPage());
+        actions.put("POST/authentication/login", new LoginAction(this.daoManager));
+        actions.put("GET/authentication/logout", new LogoutAction());
     }
 
     public Action getAction(HttpServletRequest request){

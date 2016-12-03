@@ -54,7 +54,7 @@ public class UserDaoTest {
     @Test
     public void testFind() throws Exception {
         String userLogin = "user";
-        User result = dao.find(userLogin);
+        User result = dao.find(userLogin, "pass");
         assertEquals("pass", result.getUserPassword());
         assertEquals("user", result.getPrivilege());
     }
