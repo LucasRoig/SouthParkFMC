@@ -25,6 +25,7 @@ import fr.athome.southparkfmc.actions.season.ReadSeason;
 import fr.athome.southparkfmc.actions.tag.CreateTag;
 import fr.athome.southparkfmc.actions.episode.ReadEpisode;
 import fr.athome.southparkfmc.actions.episode.UpdateEpisode;
+import fr.athome.southparkfmc.actions.search.SearchEpisode;
 import fr.athome.southparkfmc.actions.season.CreateSeason;
 import fr.athome.southparkfmc.actions.tag.ReadAllTag;
 import fr.athome.southparkfmc.actions.tag.ReadTag;
@@ -63,6 +64,7 @@ public class ActionFactory {
         actions.put("GET/authentication/login", new GetLoginPage());
         actions.put("POST/authentication/login", new LoginAction(this.daoManager));
         actions.put("GET/authentication/logout", new LogoutAction());
+        actions.put("GET/episode/search", new SearchEpisode(this.daoManager));
     }
 
     public Action getAction(HttpServletRequest request){

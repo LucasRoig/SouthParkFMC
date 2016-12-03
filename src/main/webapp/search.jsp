@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : 24 nov. 2016, 16:45:32
+    Document   : search
+    Created on : 3 déc. 2016, 19:45:27
     Author     : Lucas
 --%>
 
@@ -18,25 +18,18 @@
 
         <link  rel="stylesheet" type="text/css" href="/css/main.css">
         <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
     </head>
     <body>
         <%@include file="header.jsp" %>
         <div class="container">
-            <div class="jumbotron text-center">
-                <h1>South Park FMC</h1>
-                <form action="episode/search">
-                    <div class="input-group">
-                        <input type="text" name="text" class="form-control input-lg" placeholder="Search">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default btn-lg" type="submit">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                        </span>
-                    </div>
-                </form>
-            </div>
+        <ul>
+            <c:forEach var="result" items="${results}">
+                <li><a href="/episode/read?episodeId=${result.episodeId}">${result.nameVF} [${result.score}]</a></li>
+            </c:forEach>
+        </ul>
         </div>
     </body>
 </html>

@@ -31,9 +31,9 @@
                         <li> <a href="/authentication/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                         </c:if>
                 </ul>
-                <form class="nav navbar-nav navbar-form navbar-right">
+                <form class="nav navbar-nav navbar-form navbar-right" action="/episode/search">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="text" class="form-control" placeholder="Search" name="text">
                         <div class="input-group-btn">
                             <button class="btn btn-default" type="submit">
                                 <span class="glyphicon glyphicon-search"></span>

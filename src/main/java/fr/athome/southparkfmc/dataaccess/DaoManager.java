@@ -45,4 +45,8 @@ public class DaoManager {
     public RoleDao getRoleDao(){
         return new RoleDao(this.dataSource);
     }
+    
+    public SearchDao getSearchDao(){
+        return new SearchDao(this.dataSource);
+    }
 }

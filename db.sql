@@ -78,3 +78,38 @@ privilege varchar(16) NOT NULL,
 FOREIGN KEY (privilege) REFERENCES PRIVILEGE(privilege)
 ); 
 
+-- Vue Index :
+CREATE MATERIALIZED VIEW episode_search_index AS
+select episode.episodeid,episode.namevf, episode.namevo, setweight(to_tsvector('french',nameVF),'A') 
+						  || setweight(to_tsvector('french', plot),'B') 
+                          || setweight(to_tsvector('french',coalesce(string_agg(tagname, ' '))),'A')
+                          || setweight(to_tsvector('french',coalesce(string_agg(taggednote, ' '))),'C')
+                          || setweight(to_tsvector('french',coalesce(string_agg(apparitionnote, ' '))),'C')as document From 
+	episode left join (select * from tagged join tag on tagged.tagid=tag.tagid) as tag on tag.episodeid=episode.episodeid 
+    left join apparition on apparition.episodeId=episode.episodeId group by episode.episodeid
+	
+CREATE INDEX idx_fts_search_episode ON episode_search_index USING gin(document);
+
+--Pour actualiser la vue :
+REFRESH MATERIALIZED VIEW episode_search_index;
+REINDEX INDEX idx_fts_search_episode;
+
+--Trigger
+create or replace function update_episode() returns trigger
+	AS $$ 
+    	begin
+    	REFRESH MATERIALIZED VIEW episode_search_index;
+        REINDEX INDEX idx_fts_search_episode;
+        RETURN NEW;
+        end
+    $$
+    language PLPGSQL;
+	
+create trigger update_episode_index AFTER INSERT OR UPDATE OR DELETE ON EPISODE
+EXECUTE PROCEDURE update_episode();
+create trigger update_episode_index AFTER INSERT OR UPDATE OR DELETE ON Tagged
+EXECUTE PROCEDURE update_episode();
+create trigger update_episode_index AFTER INSERT OR UPDATE OR DELETE ON apparition
+EXECUTE PROCEDURE update_episode();
+create trigger update_episode_index AFTER INSERT OR UPDATE OR DELETE ON quote
+EXECUTE PROCEDURE update_episode();
