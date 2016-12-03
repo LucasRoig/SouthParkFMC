@@ -37,8 +37,10 @@
                         </c:if>
                     </c:forEach>
             </ul>
+            <c:if test="${(!empty sessionScope.user) && (sessionScope.user.privilege == 'ADMIN')}">
+                <button class="btn btn-default pull-right" data-toggle="modal" data-target="#addSeason"> <span class="glyphicon glyphicon-plus"> </span> Ajouter une saison</button>
+            </c:if>
 
-            <button class="btn btn-default pull-right" data-toggle="modal" data-target="#addSeason"> <span class="glyphicon glyphicon-plus"> </span> Ajouter une saison</button>
         </div>
 
         <div class="container">
@@ -64,7 +66,9 @@
                     </c:forEach>
                 </tbody>
             </table>
-            <button class="btn btn-default pull-right" data-toggle="modal" data-target="#addEpisode"> <span class="glyphicon glyphicon-plus"> </span> Ajouter un épisode</button>
+            <c:if test="${(!empty sessionScope.user) && (sessionScope.user.privilege == 'ADMIN')}">
+                <button class="btn btn-default pull-right" data-toggle="modal" data-target="#addEpisode"> <span class="glyphicon glyphicon-plus"> </span> Ajouter un épisode</button>
+            </c:if>
         </div>
 
 

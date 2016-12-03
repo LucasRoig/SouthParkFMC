@@ -13,10 +13,34 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>
             <page-encoding>UTF-8</page-encoding>
         </jsp-property-group> 
     </jsp-config>
+    
+    <filter>
+        <filter-name>Authentication</filter-name>
+        <filter-class>fr.athome.southparkfmc.filters.AuthFilter</filter-class>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>Authentication</filter-name>
+        <url-pattern>/episode/create</url-pattern>
+        <url-pattern>/episode/update</url-pattern>
+        <url-pattern>/episode/addApparition</url-pattern>
+        <url-pattern>/episode/addTag</url-pattern>
+        <url-pattern>/episode/addQuote</url-pattern>
+        <url-pattern>/episode/removeQuote</url-pattern>
+        <url-pattern>/episode/removeTag</url-pattern>
+        <url-pattern>/episode/removeApparition</url-pattern>
+        <url-pattern>/episode/updateActiveTag</url-pattern>
+        <url-pattern>/episode/updateApparition</url-pattern>
+        <url-pattern>/episode/updateQuote</url-pattern>
+        <url-pattern>/tag/create</url-pattern>
+        <url-pattern>/season/create</url-pattern>
+        <url-pattern>/character/create</url-pattern>
+    </filter-mapping>
 </web-app>

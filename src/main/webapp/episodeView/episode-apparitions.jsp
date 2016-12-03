@@ -23,22 +23,25 @@
                     <td>${apparition.note}</td>
                     <td>
                         <div class="btn-group pull-right">
-                            <button class="btn btn-danger btn-sm btn-remove-apparition"
-                                    value="${apparition.characterId}" ><span class="glyphicon glyphicon-remove"/></button>
-                            <button class="btn btn-default btn-sm btn-edit-apparition"data-toggle="modal" 
-                                    data-target="#editApparition"
-                                    data-characterid="${apparition.characterId}"
-                                    data-charactername="${apparition.characterName}"
-                                    data-roleid="${apparition.roleId}"
-                                    data-note="${apparition.note}"><span class="glyphicon glyphicon-pencil"/></button>
+                            <c:if test="${(!empty sessionScope.user) && (sessionScope.user.privilege == 'ADMIN')}">
+                                <button class="btn btn-danger btn-sm btn-remove-apparition"
+                                        value="${apparition.characterId}" ><span class="glyphicon glyphicon-remove"/></button>
+                                <button class="btn btn-default btn-sm btn-edit-apparition"data-toggle="modal" 
+                                        data-target="#editApparition"
+                                        data-characterid="${apparition.characterId}"
+                                        data-charactername="${apparition.characterName}"
+                                        data-roleid="${apparition.roleId}"
+                                        data-note="${apparition.note}"><span class="glyphicon glyphicon-pencil"/></button>
+                            </c:if>
                         </div>
                     </td>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
-    <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#addApparition"><span class ="glyphicon glyphicon-plus"></span> Ajouter un personnage</button>
-
+    <c:if test="${(!empty sessionScope.user) && (sessionScope.user.privilege == 'ADMIN')}">
+        <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#addApparition"><span class ="glyphicon glyphicon-plus"></span> Ajouter un personnage</button>
+    </c:if>
 </div>
 <!-- Modal Ajout apparition
 Envoie une requete avec les parametres suivants :

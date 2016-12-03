@@ -24,23 +24,27 @@
                     <td>${quote.quoteNote}</td>
                     <td>
                         <div class="btn-group pull-right">
-                            <button class="btn btn-danger btn-sm btn-remove-quote" value="${quote.quoteId}"><span class="glyphicon glyphicon-remove"/></button>
-                            <button class="btn btn-default btn-sm btn-edit-quote" 
-                                    data-toggle="modal" 
-                                    data-target="#editQuote"
-                                    data-quoteId ="${quote.quoteId}"
-                                    data-characterId ="${quote.characterId}"
-                                    data-note="${quote.quoteNote}"
-                                    data-text="${quote.quoteText}"
-                                    data-characterName="${quote.characterName}"
-                                    ><span class="glyphicon glyphicon-pencil"/></button>
+                            <c:if test="${(!empty sessionScope.user) && (sessionScope.user.privilege == 'ADMIN')}">
+                                <button class="btn btn-danger btn-sm btn-remove-quote" value="${quote.quoteId}"><span class="glyphicon glyphicon-remove"/></button>
+                                <button class="btn btn-default btn-sm btn-edit-quote" 
+                                        data-toggle="modal" 
+                                        data-target="#editQuote"
+                                        data-quoteId ="${quote.quoteId}"
+                                        data-characterId ="${quote.characterId}"
+                                        data-note="${quote.quoteNote}"
+                                        data-text="${quote.quoteText}"
+                                        data-characterName="${quote.characterName}"
+                                        ><span class="glyphicon glyphicon-pencil"/></button>
+                            </c:if>
                         </div>
                     </td>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
-    <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#addQuote"><span class ="glyphicon glyphicon-plus"></span> Ajouter une réplique</button>
+    <c:if test="${(!empty sessionScope.user) && (sessionScope.user.privilege == 'ADMIN')}">
+        <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#addQuote"><span class ="glyphicon glyphicon-plus"></span> Ajouter une réplique</button>
+    </c:if>
 </div>
 
 <!-- Modal Ajout quote

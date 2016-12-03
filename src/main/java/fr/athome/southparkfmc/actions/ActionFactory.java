@@ -5,6 +5,9 @@
  */
 package fr.athome.southparkfmc.actions;
 
+import fr.athome.southparkfmc.actions.authentication.GetLoginPage;
+import fr.athome.southparkfmc.actions.authentication.LoginAction;
+import fr.athome.southparkfmc.actions.authentication.LogoutAction;
 import fr.athome.southparkfmc.actions.character.CreateCharacter;
 import fr.athome.southparkfmc.actions.character.ReadAllCharacter;
 import fr.athome.southparkfmc.actions.character.ReadCharacter;
@@ -24,6 +27,8 @@ import fr.athome.southparkfmc.actions.tag.CreateTag;
 import fr.athome.southparkfmc.actions.episode.ReadEpisode;
 import fr.athome.southparkfmc.actions.episode.UpdateEpisode;
 import fr.athome.southparkfmc.actions.season.CreateSeason;
+import fr.athome.southparkfmc.actions.tag.ReadAllTag;
+import fr.athome.southparkfmc.actions.tag.ReadTag;
 import fr.athome.southparkfmc.dataaccess.DaoManager;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
@@ -51,6 +56,8 @@ public class ActionFactory {
         actions.put("POST/episode/updateApparition", new UpdateApparition(this.daoManager));
         actions.put("POST/episode/updateQuote", new UpdateQuote(this.daoManager));
         actions.put("POST/tag/create", new CreateTag(this.daoManager));
+        actions.put("GET/tag/readAll", new ReadAllTag(this.daoManager));
+        actions.put("GET/tag/read", new ReadTag(this.daoManager));
         actions.put("GET/season/read", new ReadSeason(this.daoManager));
         actions.put("POST/season/create", new CreateSeason(this.daoManager));
         actions.put("POST/character/create", new CreateCharacter(this.daoManager));
@@ -60,6 +67,9 @@ public class ActionFactory {
         //Gestion des apparitions côté personnage
         actions.put("POST/character/updateApparition", new fr.athome.southparkfmc.actions.character.UpdateApparition(this.daoManager));
         actions.put("POST/character/removeApparition", new fr.athome.southparkfmc.actions.character.RemoveApparition(this.daoManager));
+        actions.put("GET/authentication/login", new GetLoginPage());
+        actions.put("POST/authentication/login", new LoginAction(this.daoManager));
+        actions.put("GET/authentication/logout", new LogoutAction());
     }
 
     public Action getAction(HttpServletRequest request){

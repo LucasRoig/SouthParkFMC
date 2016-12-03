@@ -23,12 +23,8 @@ import org.slf4j.LoggerFactory;
  *
  * @author Lucas
  */
-@WebServlet(name = "TagController", urlPatterns = {"/tag/*"})
-public class TagController extends HttpServlet {
-  public static final String PARAM_TAGID = "tagId";
-  public static final String PARAM_TAG_NAME = "tagName";
-  public static final String PARAM_SELECTED_TAG = "tag";
-  public static final String PARAM_ERROR= "error";
+@WebServlet(name = "UserController", urlPatterns = {"/authentication/*"})
+public class AuthenticationController extends HttpServlet {
 
     private static Logger LOGGER = LoggerFactory.getLogger(TagController.class);
 
@@ -55,7 +51,6 @@ public class TagController extends HttpServlet {
         }else if(!view.equals("#")){
             response.sendRedirect(view);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
