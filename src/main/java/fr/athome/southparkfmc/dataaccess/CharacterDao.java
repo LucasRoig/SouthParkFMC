@@ -50,7 +50,6 @@ public class CharacterDao {
         rs.close();
         stmt.close();
         connection.close();
-        
         return result;
     }
     

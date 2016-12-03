@@ -59,6 +59,7 @@ public class EpisodeController extends HttpServlet {
             throws ServletException, IOException {
         LOGGER.info("Requete reçue : " + request.getMethod()+request.getServletPath()+request.getPathInfo());
         Action action = actionFactory.getAction(request);
+        
         String view = action.execute(request, response);
 
         if(view.endsWith(".jsp")){

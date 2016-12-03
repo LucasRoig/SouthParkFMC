@@ -53,7 +53,6 @@ public class QuoteDaoTest {
      */
     @Test
     public void testFind() throws Exception {
-        System.out.println("find");
         int quoteId = 0;
         Quote result = dao.find(quoteId);
         assertEquals("Et je rentre à ma maison", result.getQuoteText());

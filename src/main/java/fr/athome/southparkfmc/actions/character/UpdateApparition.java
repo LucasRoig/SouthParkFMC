@@ -1,9 +1,10 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.athome.southparkfmc.actions.episode;
+package fr.athome.southparkfmc.actions.character;
 
 import fr.athome.southparkfmc.actions.Action;
 import fr.athome.southparkfmc.dataaccess.DaoManager;
@@ -31,9 +32,9 @@ public class UpdateApparition implements Action{
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         gatherParameters(request);
         EpisodeDao dao = daoManager.getEpisodeDao();
-        dao.updateApparition(episodeId, characterId, roleId, note); 
+        dao.updateApparition(episodeId, characterId, roleId, note);
         request.setAttribute(EpisodeController.PARAM_EPISODEID, episodeId);
-        return "read?episodeId=" + episodeId;
+        return "read?characterId=" + characterId;
     }
     
     private void gatherParameters(HttpServletRequest request){
