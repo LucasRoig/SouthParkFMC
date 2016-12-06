@@ -18,10 +18,10 @@
         <tbody>
             <c:forEach var="apparition" items="${apparitionList}">
                 <tr>
-                    <td>${apparition.characterName}</td>
-                    <td>${apparition.role}</td>
-                    <td>${apparition.note}</td>
-                    <td>
+                    <td class="col-md-2"><a href="/character/read?characterId=${apparition.characterId}">${apparition.characterName}</a></td>
+                    <td class="col-md-2">${apparition.role}</td>
+                    <td class="col-md-6">${apparition.note}</td>
+                    <td class="col-md-2">
                         <div class="btn-group pull-right">
                             <c:if test="${(!empty sessionScope.user) && (sessionScope.user.privilege == 'ADMIN')}">
                                 <button class="btn btn-danger btn-sm btn-remove-apparition"

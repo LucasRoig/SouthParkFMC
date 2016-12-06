@@ -26,6 +26,7 @@
     <body>
         <%@include file="/header.jsp" %>
         <div class="container">
+            <h1><center>Personnages</center></h1>
             <table class="table table-striped">
                 <thead>
                     <tr>

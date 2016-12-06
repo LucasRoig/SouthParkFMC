@@ -37,7 +37,7 @@
                 <tbody>
                     <c:forEach var="activeTag" items="${usesList}">
                         <tr>
-                            <td>${activeTag.episodeName}</td>
+                            <td><a href="/episode/read?episodeId=${activeTag.episodeId}"> ${activeTag.episodeName} </a></td>
                             <td>${activeTag.note}</td>
                             <td><a href="/episode/read?episodeId=${activeTag.episodeId}"><span class="glyphicon pull-right glyphicon-eye-open"></span></a></td>
                         </tr>

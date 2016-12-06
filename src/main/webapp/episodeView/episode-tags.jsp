@@ -12,9 +12,9 @@
         <tbody>
         <c:forEach var="tag" items="${tagList}">
             <tr>
-                <td class="tagName" value="${tag.tagName}">${tag.tagName}</td>
-                <td class="tagNote" value="${tag.note}">${tag.note}</td>
-                <td>
+                <td class="tagName col-md-4" value="${tag.tagName}"><a href="/tag/read?tagId=${tag.tagId}">${tag.tagName}</a></td>
+                <td class="tagNote col-md-6" value="${tag.note}">${tag.note}</td>
+                <td class="col-md-2">
                     <div class="btn-group pull-right">
                         <c:if test="${(!empty sessionScope.user) && (sessionScope.user.privilege == 'ADMIN')}">
                             <button class="btn btn-danger btn-sm btn-remove-tag" value="${tag.tagId}"><span class="glyphicon glyphicon-remove"/></button>

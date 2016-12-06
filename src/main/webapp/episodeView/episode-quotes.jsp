@@ -19,10 +19,10 @@
         <tbody>
             <c:forEach var="quote" items="${quoteList}">
                 <tr>
-                    <td>${quote.characterName}</td>
-                    <td>${quote.quoteText}</td>
-                    <td>${quote.quoteNote}</td>
-                    <td>
+                    <td class="col-md-2"> <a href="/character/read?characterId=${quote.characterId}">${quote.characterName}</td>
+                    <td class="col-md-4">${quote.quoteText}</td>
+                    <td class="col-md-4">${quote.quoteNote}</td>
+                    <td class="col-md-2">
                         <div class="btn-group pull-right">
                             <c:if test="${(!empty sessionScope.user) && (sessionScope.user.privilege == 'ADMIN')}">
                                 <button class="btn btn-danger btn-sm btn-remove-quote" value="${quote.quoteId}"><span class="glyphicon glyphicon-remove"/></button>

@@ -16,9 +16,9 @@
                 <tr>
                     <td>${apparition.characterName}</td>
                     <td>${apparition.role}</td>
-                    <td>${apparition.episodeName}</td>
+                    <td><a href="/episode/read?episodeId=${apparition.episodeId}"> ${apparition.episodeName} </a></td>
                     <td>${apparition.note}</td>
-                    <td>
+                    <td class="col-md-2">
                         <div class="btn-group pull-right">
                             <c:if test="${(!empty sessionScope.user) && (sessionScope.user.privilege == 'ADMIN')}">
                             <button class="btn btn-danger btn-sm btn-remove-apparition" value="${apparition.characterId}|${apparition.episodeId}"><span class="glyphicon glyphicon-remove"/></button>
