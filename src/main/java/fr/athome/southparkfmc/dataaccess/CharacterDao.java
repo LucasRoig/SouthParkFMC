@@ -9,6 +9,7 @@ import fr.athome.southparkfmc.model.Apparition;
 import fr.athome.southparkfmc.model.ApparitionBuilder;
 import fr.athome.southparkfmc.model.CharacterBuilder;
 import fr.athome.southparkfmc.model.CharacterEntity;
+import fr.athome.southparkfmc.model.Episode;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +17,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sql.DataSource;
 
 /**
@@ -201,6 +204,26 @@ public class CharacterDao {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+        return result;
+    }
+    
+    public List<CharacterEntity> findByCharacterName(String name){
+        List<CharacterEntity> result = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM characters WHERE charactername LIKE ?";
+            Connection connection = this.dataSource.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, "%"+name+"%");
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                result.add(CharacterBuilder.buildFromRS(rs));
+            }
+            rs.close();
+            stmt.close();
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(CharacterDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }

@@ -5,6 +5,10 @@
  */
 package fr.athome.southparkfmc.actions;
 
+import fr.athome.southparkfmc.actions.stat.StatTag;
+import fr.athome.southparkfmc.actions.stat.StatMainData;
+import fr.athome.southparkfmc.actions.stat.StatCharacter;
+import fr.athome.southparkfmc.actions.stat.StatPage;
 import fr.athome.southparkfmc.actions.authentication.GetLoginPage;
 import fr.athome.southparkfmc.actions.authentication.LoginAction;
 import fr.athome.southparkfmc.actions.authentication.LogoutAction;
@@ -73,6 +77,11 @@ public class ActionFactory {
         actions.put("POST/authentication/login", new LoginAction(this.daoManager));
         actions.put("GET/authentication/logout", new LogoutAction());
         actions.put("GET/episode/search", new SearchEpisode(this.daoManager));
+        //Gestion des statistiques
+        actions.put("GET/stat/", new StatPage());
+        actions.put("GET/stat/mainData", new StatMainData(this.daoManager));
+        actions.put("GET/stat/character", new StatCharacter(this.daoManager));
+        actions.put("GET/stat/tag", new StatTag(this.daoManager));
     }
 
     public Action getAction(HttpServletRequest request){
