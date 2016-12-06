@@ -19,8 +19,9 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
+                    <li><a href="/">Home <span class="sr-only">(current)</span></a></li>
                     <li><a href="/season/read">Saisons</a></li>
-                    <li><a href="Personnages">Personnage</a></li>
+                    <li><a href="/character/readAll">Personnage</a></li>
                     <li><a href="/tag/readAll">Tags</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right ">

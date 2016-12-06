@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.athome.southparkfmc.actions.episode;
+package fr.athome.southparkfmc.actions.character;
 
 import fr.athome.southparkfmc.actions.Action;
 import fr.athome.southparkfmc.dataaccess.DaoManager;
 import fr.athome.southparkfmc.dataaccess.EpisodeDao;
 import fr.athome.southparkfmc.servlets.EpisodeController;
+import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,14 +18,13 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Lucas
  */
-public class UpdateApparition implements Action{
+public class RemoveApparition implements Action{
     DaoManager daoManager;
     int episodeId;
     int characterId;
-    int roleId;
-    String note;
-    
-    public UpdateApparition(DaoManager daoManager) {
+    int apparitionId;
+
+    public RemoveApparition(DaoManager daoManager) {
         this.daoManager = daoManager;
     }
 
@@ -31,15 +32,28 @@ public class UpdateApparition implements Action{
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         gatherParameters(request);
         EpisodeDao dao = daoManager.getEpisodeDao();
-        dao.updateApparition(episodeId, characterId, roleId, note); 
-        request.setAttribute(EpisodeController.PARAM_EPISODEID, episodeId);
-        return "read?episodeId=" + episodeId;
+        boolean result = dao.removeApparition(episodeId, characterId);
+
+        response.setContentType("application/json");
+        String json;
+        if(result){
+            //Pas d'erreur
+            json = "{\"result\":true,\"apparitionId\":" + characterId + "}";
+        }else{
+            json = "{\"result\":false,\"apparitionId\":" + characterId + "}";
+        }
+        try {
+            PrintWriter out = response.getWriter();
+            out.print(json);
+            out.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return "#";
     }
-    
+
     private void gatherParameters(HttpServletRequest request){
         this.episodeId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_EPISODEID));
         this.characterId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_CHARACTERID));
-        this.roleId = Integer.valueOf(request.getParameter(EpisodeController.PARAM_ROLE_ID));
-        this.note = request.getParameter(EpisodeController.PARAM_NOTE);
     }
 }

@@ -10,7 +10,6 @@ import fr.athome.southparkfmc.actions.ActionFactory;
 import fr.athome.southparkfmc.dataaccess.DaoManager;
 import fr.athome.southparkfmc.dataaccess.DataSourceSupplier;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,8 +26,12 @@ import org.slf4j.LoggerFactory;
 public class CharacterController extends HttpServlet {
     public static final String PARAM_CHARACTERID = "characterId";
     public static final String PARAM_CHARACTER_NAME = "characterName";
+    public static final String PARAM_EPISODEID = "episodeId";
+    public static final String PARAM_NOTE= "note";
     public static final String PARAM_BACKGROUND = "background";
     public static final String PARAM_SELECTED_CHARACTER = "character";
+    public static final String PARAM_CHARACTERS = "characterList";
+    public static final String PARAM_APPARITIONS = "apparitionList";
     public static final String PARAM_ERROR= "error";
 
     private static Logger LOGGER = LoggerFactory.getLogger(EpisodeController.class);

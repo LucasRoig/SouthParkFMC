@@ -153,7 +153,6 @@ public class EpisodeDaoTest {
      */
     @Test
     public void testRemoveTag() throws SQLException {
-        System.out.println("removeTag");
         int episodeId = 1;
         int tagId = 1;
         dao.removeTag(episodeId, tagId);
