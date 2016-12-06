@@ -63,7 +63,7 @@ Envoie une requete avec les parametres suivants :
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="characterId">Personnage : </label>
                         <div class="col-sm-6">
-                            <select class="select-selectize-createEnable" name="characterId" placeholder="Entrez le nom du personnage...">
+                            <select class="select-selectize-createDisable" name="characterId" placeholder="Entrez le nom du personnage...">
                                 <option disabled selected value> -- Character name -- </option>
                                 <c:forEach  var="character" items="${apparitionList}">
                                     <option value="${character.characterId}">${character.characterName}</option>
