@@ -40,7 +40,7 @@ public class UpdateCharacter implements Action{
             System.err.println("Parametres invalides");
         }
         request.setAttribute(CharacterController.PARAM_CHARACTERID, characterId);
-        return "read?characterId=" + this.characterId;
+        return "/character/read?characterId=" + this.characterId;
     }
     
     private void gatherParameters(HttpServletRequest request){

@@ -50,6 +50,7 @@ public class ReadEpisode implements Action{
         TagDao tagDao = this.daoManager.getTagDao();
         try {
             Episode selectedEpisode = episodeDao.find(episodeId);
+            if(selectedEpisode == null) return "404.jsp";
             List<Apparition> apparitionList = episodeDao.findApparition(episodeId);
             List<Quote> quoteList = episodeDao.findQuotes(episodeId);
             List<ActiveTag> tagList = episodeDao.findActiveTag(episodeId);
@@ -68,7 +69,7 @@ public class ReadEpisode implements Action{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "404";
+        return "404.jsp";
     }
 
     private void gatherParameters(HttpServletRequest request){

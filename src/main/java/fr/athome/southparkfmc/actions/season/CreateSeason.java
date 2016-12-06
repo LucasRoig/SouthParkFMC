@@ -37,7 +37,7 @@ public class CreateSeason implements Action{
             System.err.println("Parametres invalides");
         }
         request.setAttribute(SeasonController.PARAM_SEASONID, seasonId);
-        return "read?seasonId=" + this.seasonId;
+        return "/season/read?seasonId=" + this.seasonId;
     }
     
     private void gatherParameters(HttpServletRequest request){

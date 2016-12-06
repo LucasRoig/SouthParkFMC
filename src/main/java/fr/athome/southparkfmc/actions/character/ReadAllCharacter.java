@@ -35,6 +35,6 @@ public class ReadAllCharacter implements Action{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "404";
+        return "404.jsp";
     }
 }

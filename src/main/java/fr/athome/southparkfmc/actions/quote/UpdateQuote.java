@@ -41,7 +41,7 @@ public class UpdateQuote implements Action{
             System.err.println("Parametres invalides");
         }
         request.setAttribute(QuoteController.PARAM_QUOTEID, quoteId);
-        return "read?quoteId=" + this.quoteId;
+        return "/quote/read?quoteId=" + this.quoteId;
     }
     
     private void gatherParameters(HttpServletRequest request){

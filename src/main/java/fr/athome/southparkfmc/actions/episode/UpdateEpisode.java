@@ -42,7 +42,7 @@ public class UpdateEpisode implements Action{
             System.err.println("Parametres invalides");
         }
         request.setAttribute(EpisodeController.PARAM_EPISODEID, episodeId);
-        return "read?episodeId=" + this.episodeId;
+        return "/episode/read?episodeId=" + this.episodeId;
     }
     
     private void gatherParameters(HttpServletRequest request){

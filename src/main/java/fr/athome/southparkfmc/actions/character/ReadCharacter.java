@@ -38,6 +38,7 @@ public class ReadCharacter implements Action{
         
         try {
             CharacterEntity selectedCharacter = characterDao.find(characterId);
+            if(selectedCharacter == null) return "404.jsp";
             List<Apparition> apparitionList = characterDao.findApparitions(characterId);
             List<Role> allRolesList = roleDao.findAll();
             request.setAttribute("allRolesList", allRolesList);
@@ -47,7 +48,7 @@ public class ReadCharacter implements Action{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "404";
+        return "404.jsp";
     }
     
     private void gatherParameters(HttpServletRequest request){

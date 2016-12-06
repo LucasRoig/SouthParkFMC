@@ -37,7 +37,7 @@ public class UpdateTag implements Action{
             System.err.println("Parametres invalides");
         }
         request.setAttribute(TagController.PARAM_TAGID, tagId);
-        return "read?tagId=" + this.tagId;
+        return "/tag/read?tagId=" + this.tagId;
     }
     
     private void gatherParameters(HttpServletRequest request){

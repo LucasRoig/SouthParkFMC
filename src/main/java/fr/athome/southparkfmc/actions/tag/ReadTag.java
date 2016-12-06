@@ -35,16 +35,18 @@ public class ReadTag implements Action{
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         this.gatherParameters(request);
         TagDao tagDao = this.daoManager.getTagDao();
+        
         try {
             List<ActiveTag> usesList = tagDao.findUses(tagId);
             Tag tag = tagDao.find(tagId);
+            if(tag == null) return "404.jsp";
             request.setAttribute("tag", tag);
             request.setAttribute("usesList",usesList);
             return "readTag.jsp";
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "404";
+        return "404.jsp";
     }
     
     private void gatherParameters(HttpServletRequest request){

@@ -34,7 +34,7 @@ public class UpdateApparition implements Action{
         EpisodeDao dao = daoManager.getEpisodeDao();
         dao.updateApparition(episodeId, characterId, roleId, note);
         request.setAttribute(EpisodeController.PARAM_EPISODEID, episodeId);
-        return "read?characterId=" + characterId;
+        return "/character/read?characterId=" + characterId;
     }
     
     private void gatherParameters(HttpServletRequest request){
