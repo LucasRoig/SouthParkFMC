@@ -95,7 +95,7 @@ REFRESH MATERIALIZED VIEW episode_search_index;
 REINDEX INDEX idx_fts_search_episode;
 
 --Trigger
-create or replace function update_episode() returns trigger
+create function update_episode() returns trigger
 	AS $$ 
     	begin
     	REFRESH MATERIALIZED VIEW episode_search_index;
@@ -121,3 +121,30 @@ select characters.characterid,characters.characterName, setweight(to_tsvector('f
 						  || setweight(to_tsvector('french',coalesce(background,'')), 'B') 
                           || setweight(to_tsvector('french',coalesce(string_agg(apparitionnote, ''))),'B')as document From 
 	characters left join apparition on apparition.characterid=characters.characterid group by characters.characterid;
+CREATE INDEX idx_fts_search_character ON character_search_index USING gin(document);
+
+create trigger update_character_index AFTER INSERT OR UPDATE OR DELETE ON Characters
+EXECUTE PROCEDURE update_character();
+create trigger update_character_index AFTER INSERT OR UPDATE OR DELETE ON Apparition
+EXECUTE PROCEDURE update_character();
+
+--Vue Index Personnage Tag
+CREATE MATERIALIZED VIEW tag_search_index AS
+select tag.tagid,tag.tagname, setweight(to_tsvector('french',tagname),'A') 
+                          || setweight(to_tsvector('french',coalesce(string_agg(taggednote, ''))),'B')as document From 
+	tag left join tagged on tag.tagid=tagged.tagid group by tag.tagid;
+	
+	CREATE INDEX idx_fts_search_tag ON tag_search_index USING gin(document);
+create function update_tag() returns trigger
+	AS $$ 
+    	begin
+    	REFRESH MATERIALIZED VIEW tag_search_index;
+        REINDEX INDEX idx_fts_search_tag;
+        RETURN NEW;
+        end
+    $$
+    language PLPGSQL;
+create trigger update_tag_index AFTER INSERT OR UPDATE OR DELETE ON Tag
+	EXECUTE PROCEDURE update_tag();
+create trigger update_tag_index AFTER INSERT OR UPDATE OR DELETE ON Tagged
+	EXECUTE PROCEDURE update_tag();

@@ -25,8 +25,8 @@
     <body>
         <%@include file="header.jsp" %>
         <div class="container">
-             <center> <h1>Recherche : ${text}</h1></center>
-            <div class="col-md-5">
+            <center><h1>Recherche : ${text}</h1></center>
+            <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">Episodes</div>
                     <div class="panel-body">
@@ -47,6 +47,20 @@
                         <ul>
                             <c:forEach var="result" items="${characterResults}">
                                 <li><a href="/character/read?characterId=${result.characterId}">${result.characterName} [${result.score}]</a></li>
+                                </c:forEach>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Tag
+                    </div>
+                    <div class="panel-body">
+                        <ul>
+                            <c:forEach var="result" items="${tagResults}">
+                                <li><a href="/tag/read?tagId=${result.tagId}">${result.tagName} [${result.score}]</a></li>
                                 </c:forEach>
                         </ul>
                     </div>

@@ -7,6 +7,7 @@ package fr.athome.southparkfmc.dataaccess;
 
 import fr.athome.southparkfmc.model.SearchCharacterResult;
 import fr.athome.southparkfmc.model.SearchEpisodeResult;
+import fr.athome.southparkfmc.model.SearchTagResult;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -77,4 +78,29 @@ public class SearchDao {
         return result;
     }
     
+    public List<SearchTagResult> searchTag(String text) throws SQLException{
+        List<SearchTagResult> result = new ArrayList<>();
+        String sql = "SELECT tagid , tagname, ts_rank(document, to_tsquery('french', ?))as score" +
+                        " FROM tag_search_index" +
+                        " WHERE document @@ to_tsquery('french',?)" +
+                        " ORDER BY ts_rank(document, to_tsquery('french',?)) DESC;";
+        Connection connection = this.datasource.getConnection();
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setString(1, text);
+        stmt.setString(2, text);
+        stmt.setString(3, text);
+        ResultSet rs = stmt.executeQuery();
+        while(rs.next()){
+            int tagId = rs.getInt("tagId");
+            String tagName = rs.getString("tagName");
+            float score = rs.getFloat("score");
+            result.add(new SearchTagResult(tagId, tagName,score));
+        }
+        
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return result;
+    }
 }
