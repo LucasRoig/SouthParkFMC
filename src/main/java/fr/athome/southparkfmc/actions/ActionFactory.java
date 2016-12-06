@@ -33,6 +33,7 @@ import fr.athome.southparkfmc.actions.tag.ReadTag;
 import fr.athome.southparkfmc.dataaccess.DaoManager;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -75,6 +76,13 @@ public class ActionFactory {
     }
 
     public Action getAction(HttpServletRequest request){
-        return actions.get(request.getMethod()+request.getServletPath()+request.getPathInfo());
+        Action action = actions.get(request.getMethod()+request.getServletPath()+request.getPathInfo());
+        if(action == null) action = new Action() {
+            @Override
+            public String execute(HttpServletRequest request, HttpServletResponse response) {
+                return "404.jsp";
+            }
+        };
+        return action;
     }
 }
