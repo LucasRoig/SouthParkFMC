@@ -20,16 +20,41 @@
         <!-- Latest compiled and minified JavaScript -->
         <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        
+
     </head>
     <body>
         <%@include file="header.jsp" %>
         <div class="container">
-        <ul>
-            <c:forEach var="result" items="${results}">
-                <li><a href="/episode/read?episodeId=${result.episodeId}">${result.nameVF} [${result.score}]</a></li>
-            </c:forEach>
-        </ul>
+             <center> <h1>Recherche : ${text}</h1></center>
+            <div class="col-md-5">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Episodes</div>
+                    <div class="panel-body">
+                        <ul>
+                            <c:forEach var="result" items="${episodeResults}">
+                                <li><a href="/episode/read?episodeId=${result.episodeId}">${result.nameVF} [${result.score}]</a></li>
+                                </c:forEach>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Personnages
+                    </div>
+                    <div class="panel-body">
+                        <ul>
+                            <c:forEach var="result" items="${characterResults}">
+                                <li><a href="/character/read?characterId=${result.characterId}">${result.characterName} [${result.score}]</a></li>
+                                </c:forEach>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
     </body>
 </html>

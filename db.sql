@@ -78,7 +78,7 @@ privilege varchar(16) NOT NULL,
 FOREIGN KEY (privilege) REFERENCES PRIVILEGE(privilege)
 ); 
 
--- Vue Index :
+-- Vue Index Episode:
 CREATE MATERIALIZED VIEW episode_search_index AS
 select episode.episodeid,episode.namevf, episode.namevo, setweight(to_tsvector('french',nameVF),'A') 
 						  || setweight(to_tsvector('french', plot),'B') 
@@ -113,3 +113,11 @@ create trigger update_episode_index AFTER INSERT OR UPDATE OR DELETE ON appariti
 EXECUTE PROCEDURE update_episode();
 create trigger update_episode_index AFTER INSERT OR UPDATE OR DELETE ON quote
 EXECUTE PROCEDURE update_episode();
+
+--Vue Index Personnage
+--Quand un champ peut etre null ultiliser coalesce.
+CREATE MATERIALIZED VIEW character_search_index AS
+select characters.characterid,characters.characterName, setweight(to_tsvector('french',characterName),'A') 					
+						  || setweight(to_tsvector('french',coalesce(background,'')), 'B') 
+                          || setweight(to_tsvector('french',coalesce(string_agg(apparitionnote, ''))),'B')as document From 
+	characters left join apparition on apparition.characterid=characters.characterid group by characters.characterid;

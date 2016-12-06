@@ -8,8 +8,10 @@ package fr.athome.southparkfmc.actions.search;
 import fr.athome.southparkfmc.actions.Action;
 import fr.athome.southparkfmc.dataaccess.DaoManager;
 import fr.athome.southparkfmc.dataaccess.SearchDao;
-import fr.athome.southparkfmc.model.SearchResult;
+import fr.athome.southparkfmc.model.SearchCharacterResult;
+import fr.athome.southparkfmc.model.SearchEpisodeResult;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
@@ -31,6 +33,7 @@ public class SearchEpisode implements Action{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         this.gatherParameters(request);
+        request.setAttribute("text", text);
         SearchDao searchDao = dao.getSearchDao();
         text = text.toLowerCase();
         text = text.trim();
@@ -39,29 +42,54 @@ public class SearchEpisode implements Action{
         String textEt = text.replaceAll(" ", "&");
         
         try {
-            List<SearchResult> resultEt = searchDao.search(textEt);
-            List<SearchResult> resultOu = searchDao.search(textOu);
-            for(SearchResult ou : resultOu){
+            List<SearchEpisodeResult> resultEpisodeEt = searchDao.searchEpisode(textEt);
+            List<SearchEpisodeResult> resultEpisodeOu = searchDao.searchEpisode(textOu);
+            for(SearchEpisodeResult ou : resultEpisodeOu){
                 boolean trouve = false;
-                for(SearchResult et : resultEt){
+                for(SearchEpisodeResult et : resultEpisodeEt){
                     if(et.getEpisodeId() == ou.getEpisodeId()){
                         trouve = true;
                         break;
                     }
                 }
                 if(!trouve){
-                    resultEt.add(ou);
+                    resultEpisodeEt.add(ou);
                 }
             }
-            resultEt.sort(new Comparator<SearchResult>() {
+            resultEpisodeEt.sort(new Comparator<SearchEpisodeResult>() {
                 @Override
-                public int compare(SearchResult o1, SearchResult o2) {
+                public int compare(SearchEpisodeResult o1, SearchEpisodeResult o2) {
                     if(o1.getScore() < o2.getScore()) return 1;
                     if(o1.getScore() > o2.getScore()) return -1;
                     return 0;
                 }
             });
-            request.setAttribute("results", resultEt);
+            request.setAttribute("episodeResults", resultEpisodeEt);
+            
+            List<SearchCharacterResult> resultCharacEt = searchDao.searchCharacter(textEt);
+            List<SearchCharacterResult> resultCharacOu = searchDao.searchCharacter(textOu);
+            for(SearchCharacterResult ou : resultCharacOu){
+                boolean trouve = false;
+                for(SearchCharacterResult et : resultCharacEt){
+                    if(et.getCharacterId()== ou.getCharacterId()){
+                        trouve = true;
+                        break;
+                    }
+                }
+                if(!trouve){
+                    resultCharacEt.add(ou);
+                }
+            }
+            resultEpisodeEt.sort(new Comparator<SearchEpisodeResult>() {
+                @Override
+                public int compare(SearchEpisodeResult o1, SearchEpisodeResult o2) {
+                    if(o1.getScore() < o2.getScore()) return 1;
+                    if(o1.getScore() > o2.getScore()) return -1;
+                    return 0;
+                }
+            });
+            request.setAttribute("characterResults", resultCharacEt);
+            
         } catch (SQLException ex) {
             Logger.getLogger(SearchEpisode.class.getName()).log(Level.SEVERE, null, ex);
         }

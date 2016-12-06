@@ -9,13 +9,13 @@ package fr.athome.southparkfmc.model;
  *
  * @author Lucas
  */
-public class SearchResult {
+public class SearchEpisodeResult {
     private int episodeId;
     private String nameVF;
     private String nameVO;
     private float score;
 
-    public SearchResult(int episodeId, String nameVF, String nameVO, float score) {
+    public SearchEpisodeResult(int episodeId, String nameVF, String nameVO, float score) {
         this.episodeId = episodeId;
         this.nameVF = nameVF;
         this.nameVO = nameVO;
