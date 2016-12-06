@@ -12,7 +12,9 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-sm-10"><h4>Background</h4></div>
-                                <div class="col-sm-2"><button class="btn btn-primary pull-right btn-switch"><span class ="glyphicon glyphicon-pencil"></span></button></div>
+                                <c:if test="${(!empty sessionScope.user) && (sessionScope.user.privilege == 'ADMIN')}">
+                                    <div class="col-sm-2"><button class="btn btn-primary pull-right btn-switch"><span class ="glyphicon glyphicon-pencil"></span></button></div>
+                                </c:if>
                             </div>
                         </div>
                         <div class="panel-body">

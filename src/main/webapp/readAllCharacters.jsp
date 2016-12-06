@@ -37,7 +37,7 @@
                     <c:forEach var="character" items="${characterList}">
                         <tr>
                             <td>${character.characterName}</td>
-                            <td><a href="/character/read?characterId=${character.characterId}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                            <td><a class="pull-right" href="/character/read?characterId=${character.characterId}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
                         </tr>
                     </c:forEach>
                 </tbody>

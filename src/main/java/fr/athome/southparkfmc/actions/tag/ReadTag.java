@@ -37,6 +37,8 @@ public class ReadTag implements Action{
         TagDao tagDao = this.daoManager.getTagDao();
         try {
             List<ActiveTag> usesList = tagDao.findUses(tagId);
+            Tag tag = tagDao.find(tagId);
+            request.setAttribute("tag", tag);
             request.setAttribute("usesList",usesList);
             return "readTag.jsp";
         } catch (Exception e) {

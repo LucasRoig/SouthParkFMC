@@ -20,14 +20,16 @@
                     <td>${apparition.note}</td>
                     <td>
                         <div class="btn-group pull-right">
+                            <c:if test="${(!empty sessionScope.user) && (sessionScope.user.privilege == 'ADMIN')}">
                             <button class="btn btn-danger btn-sm btn-remove-apparition" value="${apparition.characterId}|${apparition.episodeId}"><span class="glyphicon glyphicon-remove"/></button>
-                            <button class="btn btn-default btn-sm btn-edit-apparition"data-toggle="modal" 
+                            <button class="btn btn-default btn-sm btn-edit-apparition" data-toggle="modal" 
                                     data-target="#editApparition"
                                     data-characterid="${apparition.characterId}"
                                     data-charactername="${apparition.characterName}"
                                     data-episodeid="${apparition.episodeId}"
                                     data-roleid="${apparition.roleId}"
                                     data-note="${apparition.note}"><span class="glyphicon glyphicon-pencil"/></button>
+                            </c:if>
                         </div>
                     </td>
                 </tr>
