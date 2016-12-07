@@ -23,6 +23,7 @@
                     <li><a href="/season/read">Saisons</a></li>
                     <li><a href="/character/readAll">Personnages</a></li>
                     <li><a href="/tag/readAll">Tags</a></li>
+                    <li><a href="/stat/">Statistiques</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right ">
                     <c:if test="${(empty sessionScope.user)}">

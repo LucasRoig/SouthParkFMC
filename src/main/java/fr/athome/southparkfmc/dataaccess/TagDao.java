@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sql.DataSource;
 
 /**
@@ -193,6 +195,26 @@ public class TagDao {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+        return result;
+    }
+    
+    public List<Tag> findByTagName(String name){
+        List<Tag> result = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM tag WHERE tagname LIKE ?";
+            Connection connection = this.dataSource.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, name);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                result.add(TagBuilder.buildFromRS(rs));
+            }
+            rs.close();
+            stmt.close();
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(CharacterDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }
