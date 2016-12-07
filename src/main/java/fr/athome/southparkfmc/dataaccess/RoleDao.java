@@ -16,12 +16,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Lucas
  */
 public class RoleDao {
+    private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(QuoteDao.class);
     DataSource dataSource;
 
     public RoleDao(DataSource dataSource) {

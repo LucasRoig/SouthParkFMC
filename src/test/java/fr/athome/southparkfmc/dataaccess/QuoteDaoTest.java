@@ -76,7 +76,7 @@ public class QuoteDaoTest {
      * Test of createWithCharacter method, of class QuoteDao.
      */
     @Test
-    public void testCreate() throws SQLException {
+    public void testCreateWithCharacter() throws SQLException {
         int episodeId = 2;
         int characterId = 1;
         String quoteText = "bli blu";
@@ -84,7 +84,17 @@ public class QuoteDaoTest {
         dao.createWithCharacter(episodeId, characterId, quoteText, quoteNote);
         assertEquals(3, dao.findAll().size());
     }
-
+    /**
+     * Test of createWithoutCharacter method, of class QuoteDao.
+     */
+    @Test
+    public void testCreateWithoutCharacter() throws SQLException {
+        int episodeId = 2;
+        String quoteText = "bli blu";
+        String quoteNote = "";
+        dao.createWithoutCharacter(episodeId, quoteText, quoteNote);
+        assertEquals(3, dao.findAll().size());
+    }
     /**
      * Test of update method, of class QuoteDao.
      */

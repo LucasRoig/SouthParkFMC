@@ -19,12 +19,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Lucas
  */
 public class TagDao {
+    private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(TagDao.class);
     private DataSource dataSource;
 
     public TagDao(DataSource dataSource) {
@@ -126,12 +128,12 @@ public class TagDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQL Error with parameter tagName = " + tagName, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;
@@ -158,12 +160,12 @@ public class TagDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+           LOGGER.error("SQL Error with parameter tagName = " + tagName + " tagId = " + tagId, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;
@@ -188,12 +190,12 @@ public class TagDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQL Error with parameter tagId = " + tagId, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;
@@ -205,7 +207,7 @@ public class TagDao {
             String sql = "SELECT * FROM tag WHERE tagname LIKE ?";
             Connection connection = this.dataSource.getConnection();
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, name);
+            stmt.setString(1, "%"+name+"%");
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 result.add(TagBuilder.buildFromRS(rs));
@@ -214,7 +216,7 @@ public class TagDao {
             stmt.close();
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(CharacterDao.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error("SQL Error with parameter name = " + name, ex);
         }
         return result;
     }

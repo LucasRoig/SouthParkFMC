@@ -116,6 +116,11 @@ public class SeasonDaoTest {
         }
     }
     
+    @org.junit.Test
+    public void testCount() throws SQLException {
+        assertEquals(3, dao.countSeason());
+    }
+    
     public static DataSource getDataSource(){
         org.hsqldb.jdbc.JDBCDataSource ds = new org.hsqldb.jdbc.JDBCDataSource();
 	ds.setDatabase("jdbc:hsqldb:mem:testcase;shutdown=true");

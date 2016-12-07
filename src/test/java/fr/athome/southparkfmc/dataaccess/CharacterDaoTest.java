@@ -114,4 +114,12 @@ public class CharacterDaoTest {
         assertEquals(1, dao.findAll().size());
     }
     
+    @Test
+    public void testFindByName() throws SQLException{
+        String name = "Ran";
+        List<CharacterEntity> res = dao.findByCharacterName(name);
+        assertEquals(1,res.size());
+        assertTrue(res.get(0).getCharacterName().equals("Randy"));
+    }
+    
 }

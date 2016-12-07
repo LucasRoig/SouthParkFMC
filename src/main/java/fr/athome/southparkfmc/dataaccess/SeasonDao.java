@@ -16,12 +16,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Lucas
  */
 public class SeasonDao {
+    private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(SeasonDao.class);
     private DataSource dataSource;
 
     public SeasonDao(DataSource dataSource) {
@@ -139,12 +141,12 @@ public class SeasonDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQL Error with parameter seasonId = " + seasonId + " diffusionYear = " + diffusionYear, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;
@@ -171,12 +173,12 @@ public class SeasonDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQL Error with parameter seasonId = " + seasonId + " diffusionYear = " + diffusionYear, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;
@@ -201,12 +203,12 @@ public class SeasonDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+           LOGGER.error("SQL Error with parameter seasonId = " + seasonId, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;

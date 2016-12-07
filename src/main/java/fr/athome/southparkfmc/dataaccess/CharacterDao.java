@@ -10,6 +10,7 @@ import fr.athome.southparkfmc.model.ApparitionBuilder;
 import fr.athome.southparkfmc.model.CharacterBuilder;
 import fr.athome.southparkfmc.model.CharacterEntity;
 import fr.athome.southparkfmc.model.Episode;
+import fr.athome.southparkfmc.servlets.EpisodeController;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,13 +21,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Lucas
  */
 public class CharacterDao {
-    
+    private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CharacterDao.class);
     private DataSource dataSource;
 
     public CharacterDao(DataSource dataSource) {
@@ -133,12 +135,12 @@ public class CharacterDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQL Error with parameter characterName = " + characterName, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;
@@ -167,12 +169,13 @@ public class CharacterDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQL Error with parameter characterName = " + characterName
+                        + " characterId = " + characterId + " background = " + background, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;
@@ -197,12 +200,12 @@ public class CharacterDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQL Error with parameter characterId = " + characterId, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;
@@ -223,7 +226,7 @@ public class CharacterDao {
             stmt.close();
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(CharacterDao.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error("SQL Error with parameter name = " + name, ex);
         }
         return result;
     }

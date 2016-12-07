@@ -175,4 +175,26 @@ public class EpisodeDaoTest {
         assertEquals(2,dao.findQuotes(1).size());
     }
     
+    @Test
+    public void testUpdateActiveTag()throws SQLException{
+        dao.updateActiveTag(1, 1, "");
+        List<ActiveTag> list = dao.findActiveTag(1);
+        ActiveTag tag = null;
+        for(ActiveTag t : list){
+            if(t.getTagId() == 1) tag = t;
+        }
+        assertTrue(tag.getNote().equals(""));
+    }
+    
+    @Test
+    public void testUpdateApparition()throws SQLException{
+        String note = "Un personnage";
+        dao.updateApparition(1, 1, 1,note);
+        List<Apparition> list = dao.findApparition(1);
+        Apparition apparition = null;
+        for(Apparition a : list){
+            if(a.getCharacterId()== 1) apparition = a;
+        }
+        assertTrue(apparition.getNote().equals(note));
+    }
 }

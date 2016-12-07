@@ -20,12 +20,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Lucas
  */
 public class EpisodeDao {
+    private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(EpisodeDao.class);
     DataSource dataSource;
 
     public EpisodeDao(DataSource dataSource) {
@@ -206,12 +208,14 @@ public class EpisodeDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQL Error with parameter productionCode = " + productionCode
+                        + " seasonId = " + seasonId + " nameVO = " + nameVO + " nameVF = " + nameVF
+                        + " plot = " + plot + " indexInSeason = " + indexInSeason, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;
@@ -228,7 +232,7 @@ public class EpisodeDao {
      * @param indexInSeason
      * @return true si l'ajout s'est termine sans erreur, false sinon
      */
-    public boolean update(int episodeId, int productionCode, int SeasonId, String nameVO, String nameVF, String plot, int indexInSeason){
+    public boolean update(int episodeId, int productionCode, int seasonId, String nameVO, String nameVF, String plot, int indexInSeason){
         boolean result = false;
 
         String sql = "UPDATE episode SET productioncode=?,seasonId=?,nameVO=?,nameVF=?,plot=?,indexInSeason=? WHERE episodeId=?";
@@ -237,7 +241,7 @@ public class EpisodeDao {
         connection = this.dataSource.getConnection();
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1,productionCode);
-        stmt.setInt(2,SeasonId);
+        stmt.setInt(2,seasonId);
         stmt.setString(3,nameVO);
         stmt.setString(4,nameVF);
         stmt.setString(5,plot);
@@ -248,12 +252,14 @@ public class EpisodeDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQL Error with parameter productionCode = " + productionCode + " episodeId = " + episodeId
+                        + " seasonId = " + seasonId + " nameVO = " + nameVO + " nameVF = " + nameVF
+                        + " plot = " + plot + " indexInSeason = " + indexInSeason, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;
@@ -278,12 +284,12 @@ public class EpisodeDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQL Error with parameter episodeId = " + episodeId, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;
@@ -311,12 +317,12 @@ public class EpisodeDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQL Error with parameter episodeId = " + episodeId + " tagId = " + tagId + " note = " + note, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;
@@ -337,12 +343,12 @@ public class EpisodeDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQL Error with parameter episodeId = " + episodeId + " tagId = " + tagId + " note = " + note, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;
@@ -373,12 +379,13 @@ public class EpisodeDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQL Error with parameter episodeId = " + episodeId + " characterId = " + characterId + " roleId = " + roleId
+                        + " note = " + note, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;
@@ -409,12 +416,13 @@ public class EpisodeDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQL Error with parameter episodeId = " + episodeId + " characterId = " + characterId + " roleId = " + roleId
+                        + " note = " + note, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;
@@ -441,12 +449,12 @@ public class EpisodeDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQL Error with parameter episodeId = " + episodeId + " tagId = " + tagId, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;
@@ -473,12 +481,12 @@ public class EpisodeDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQL Error with parameter episodeId = " + episodeId + " characterId = " + characterId, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;

@@ -113,4 +113,10 @@ public class TagDaoTest {
         assertEquals(1, result.size());
     }
     
+    @Test
+    public void testFindByName() throws SQLException {
+        List<Tag> list = dao.findByTagName("Pan");
+        assertEquals(1, list.size());
+    }
+    
 }

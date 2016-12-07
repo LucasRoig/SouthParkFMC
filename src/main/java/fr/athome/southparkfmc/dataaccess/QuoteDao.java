@@ -14,12 +14,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Lucas
  */
 public class QuoteDao {
+    private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(QuoteDao.class);
     DataSource dataSource;
 
     public QuoteDao(DataSource dataSource) {
@@ -111,12 +113,14 @@ public class QuoteDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQL Error with parameter episodeId = " + episodeId
+                        + " characterId = " + characterId + " quoteText = " + quoteText 
+                        + " quoteNote = " + quoteNote, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;
@@ -145,12 +149,14 @@ public class QuoteDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQL Error with parameter episodeId = " + episodeId
+                        + " quoteText = " + quoteText 
+                        + " quoteNote = " + quoteNote, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;
@@ -183,12 +189,14 @@ public class QuoteDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQL Error with parameter episodeId = " + episodeId + " quoteId = " + quoteId
+                        + " characterId = " + characterId + " quoteText = " + quoteText 
+                        + " quoteNote = " + quoteNote, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;
@@ -213,12 +221,12 @@ public class QuoteDao {
         stmt.close();
         connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQL Error with parameter quoteId = " + quoteId, e);
         } finally{
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Error when closing connection", e);
             }
         }
         return result;
